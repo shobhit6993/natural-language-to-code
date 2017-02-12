@@ -1,11 +1,15 @@
 """
-Evaluate a single model or an ensemble of models on test data.
+Evaluate different classes of models together on the same set of test examples
+to get the their combined error. For example, trained models of type
+`TriggerChannelModel` and `ActionChannelModel` can be tested together to
+determine the total error in predicting recipes' channels.
 """
 
 import logging
 import numpy as np
 import tensorflow as tf
 
+from action_channel_model import ActionChannelModel
 from action_function_model import ActionFunctionModel
 from argument_parser import testing_arguments_parser
 import configs
@@ -17,7 +21,6 @@ from trigger_channel_model import TriggerChannelModel
 
 def log_args(args):
     """Logs command-line arguments."""
-
     logging.basicConfig(level=getattr(logging, args.log_level.upper()),
                         format='%(levelname)s: %(asctime)s: %(message)s')
     logging.info("Log Level: %s", args.log_level)
@@ -91,6 +94,21 @@ def create_ensemble(args, model_class):
 
 
 def test_models(args, model_classes):
+    """Evaluates the trained models defined by `args` and `model_classes` on
+    a common set of test examples.
+
+    The evaluation is performed both individually and combined. This method can
+    be used to evaluate different classes of models, such as
+    `TriggerChannelModel` and `ActionChannelModel` on the common set of test
+    examples, so as to determine their combined performance, such as the total
+    error in predicting recipes' channels.
+
+
+    Args:
+        args (Namespace): Namespace containing parsed arguments.
+        model_class (:obj:`Model`): One of the child classes of the `Model`
+            class.
+    """
     ensembles = []
     for arg, model_class in zip(args, model_classes):
         ensembles.append(create_ensemble(arg, model_class))
@@ -108,18 +126,31 @@ def test_models(args, model_classes):
 
 
 def main():
-    parser = testing_arguments_parser().parse_args()
+    parser = testing_arguments_parser()
 
-    str_1 = "--log-level INFO --model TriggerFunctionModel --use-names-descriptions --use-gold --experiment-name trigger-func-23/trigger-func-23-7 trigger-func-23/trigger-func-23-8 --saved-model-path ./experiments/rnn/trigger-func-23/trigger-func-23-7/model-10 ./experiments/rnn/trigger-func-23/trigger-func-23-8/model-10"
+    # Trigger Channel.
+    str_1 = "--log-level INFO --model TriggerChannelModel --experiment-name trigger-channel-1/trigger-channel-1-0 trigger-channel-1/trigger-channel-1-6 trigger-channel-1/trigger-channel-1-7 trigger-channel-1/trigger-channel-1-4 trigger-channel-1/trigger-channel-1-1 trigger-channel-1/trigger-channel-1-3 trigger-channel-1/trigger-channel-1-8 trigger-channel-1/trigger-channel-1-5 trigger-channel-1/trigger-channel-1-9 trigger-channel-1/trigger-channel-1-2 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-channel-1/trigger-channel-1-0/model-18 ./experiments/rnn/trigger-channel-1/trigger-channel-1-6/model-21 ./experiments/rnn/trigger-channel-1/trigger-channel-1-7/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-4/model-23 ./experiments/rnn/trigger-channel-1/trigger-channel-1-1/model-19 ./experiments/rnn/trigger-channel-1/trigger-channel-1-3/model-16 ./experiments/rnn/trigger-channel-1/trigger-channel-1-8/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-5/model-24 ./experiments/rnn/trigger-channel-1/trigger-channel-1-9/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-2/model-18"
     args_1 = parser.parse_args(str_1.split(' '))
     log_args(args_1)
 
-    str_2 = "--log-level INFO --model ActionFunctionModel --use-names-descriptions --use-gold --experiment-name dummy --saved-model-path ./experiments/rnn/dummy/model-checkpoints/model-6"
+    # Action Channel.
+    str_2 = "--log-level INFO --model ActionChannelModel --experiment-name action-channel-1/action-channel-1-7/ action-channel-1/action-channel-1-2/ action-channel-1/action-channel-1-5/ action-channel-1/action-channel-1-0/ action-channel-1/action-channel-1-4/ action-channel-1/action-channel-1-9/ action-channel-1/action-channel-1-1/ action-channel-1/action-channel-1-6/ action-channel-1/action-channel-1-8/ action-channel-1/action-channel-1-3/ --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-channel-1/action-channel-1-7/model-15 ./experiments/rnn/action-channel-1/action-channel-1-2/model-13 ./experiments/rnn/action-channel-1/action-channel-1-5/model-14 ./experiments/rnn/action-channel-1/action-channel-1-0/model-10 ./experiments/rnn/action-channel-1/action-channel-1-4/model-15 ./experiments/rnn/action-channel-1/action-channel-1-9/model-13 ./experiments/rnn/action-channel-1/action-channel-1-1/model-10 ./experiments/rnn/action-channel-1/action-channel-1-6/model-15 ./experiments/rnn/action-channel-1/action-channel-1-8/model-14 ./experiments/rnn/action-channel-1/action-channel-1-3/model-11"
     args_2 = parser.parse_args(str_2.split(' '))
     log_args(args_2)
 
-    args = [args_1, args_2]
-    model_classes = [TriggerFunctionModel, ActionFunctionModel]
+    # Trigger Function.
+    str_3 = "--log-level INFO --model TriggerFunctionModel --experiment-name trigger-func-35/trigger-func-35-1 trigger-func-35/trigger-func-35-6 trigger-func-35/trigger-func-35-2 trigger-func-35/trigger-func-35-8 trigger-func-35/trigger-func-35-9 trigger-func-35/trigger-func-35-3 trigger-func-35/trigger-func-35-7 trigger-func-35/trigger-func-35-4 trigger-func-35/trigger-func-35-0 trigger-func-35/trigger-func-35-5 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-func-35/trigger-func-35-1/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-6/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-2/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-8/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-9/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-3/model-18 ./experiments/rnn/trigger-func-35/trigger-func-35-7/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-4/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-0/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-5/model-17"
+    args_3 = parser.parse_args(str_3.split(' '))
+    log_args(args_3)
+
+    # Action Function.
+    str_4 = "--log-level INFO --model ActionFunctionModel --experiment-name action-func-1/action-func-1-6 action-func-1/action-func-1-1 action-func-1/action-func-1-8 action-func-1/action-func-1-4 action-func-1/action-func-1-2 action-func-1/action-func-1-7 action-func-1/action-func-1-9 action-func-1/action-func-1-0 action-func-1/action-func-1-5 action-func-1/action-func-1-3 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-func-1/action-func-1-6/model-19 ./experiments/rnn/action-func-1/action-func-1-1/model-17 ./experiments/rnn/action-func-1/action-func-1-8/model-21 ./experiments/rnn/action-func-1/action-func-1-4/model-22 ./experiments/rnn/action-func-1/action-func-1-2/model-18 ./experiments/rnn/action-func-1/action-func-1-7/model-18 ./experiments/rnn/action-func-1/action-func-1-9/model-21 ./experiments/rnn/action-func-1/action-func-1-0/model-20 ./experiments/rnn/action-func-1/action-func-1-5/model-21 ./experiments/rnn/action-func-1/action-func-1-3/model-15"
+    args_4 = parser.parse_args(str_4.split(' '))
+    log_args(args_4)
+
+    args = [args_1, args_2, args_3, args_4]
+    model_classes = [TriggerChannelModel, ActionChannelModel,
+                     TriggerFunctionModel, ActionFunctionModel]
 
     test_models(args, model_classes)
 
