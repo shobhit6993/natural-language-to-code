@@ -37,15 +37,17 @@ class EnsembledModel(object):
         all the models. Simple averaging of softmax-predictions is used for
         ensembling.
 
+        `k` = 0 returns a sorted list of all predictions.
+
         Args:
             input (str): Description of recipe.
             k (int, optional): Number of top predictions to be returned.
             Defaults to 1.
 
         Returns:
-            `list` of (`str`,`float`): List of top-`k` predictions for the given
-            description, along with the assigned probabilities. Predictions are
-            in the form of labels represented by strings
+            `list` of (`str`,`float`): Sorted list of top-`k` predictions for
+            the given description, along with the assigned probabilities.
+            Predictions are in the form of labels represented by strings
             (such as "new_photo_post" for a Trigger Function).
         """
         prediction = self._averaged_predictions(np.array([input]),
