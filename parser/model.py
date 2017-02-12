@@ -303,7 +303,7 @@ class Model(object):
         """Loads mapping between labels and ids.
 
         Args:
-            path (str): Path of CSV file in which mapping is different.
+            path (str): Path of CSV file in which mapping is defined.
         """
         with open(path, 'rb') as f:
             reader = csv.DictReader(f)
