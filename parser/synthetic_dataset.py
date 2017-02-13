@@ -1,9 +1,9 @@
 import csv
 
-from constants import ACTIONS_PATH, TRIGGERS_PATH
-from constants import TRIGGER_CHANNEL_LABELS_PATH, TRIGGER_FN_LABELS_PATH
-from constants import ACTION_CHANNEL_LABELS_PATH, ACTION_FN_LABELS_PATH
-from label import Label
+from parser.constants import ACTIONS_PATH, TRIGGERS_PATH
+from parser.constants import TRIGGER_CHANNEL_LABELS_PATH, TRIGGER_FN_LABELS_PATH
+from parser.constants import ACTION_CHANNEL_LABELS_PATH, ACTION_FN_LABELS_PATH
+from parser.label import Label
 
 
 class SyntheticDataset(object):

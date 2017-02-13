@@ -1,4 +1,4 @@
-from constants import NUM_SPECIAL_TOKENS
+from parser.constants import NUM_SPECIAL_TOKENS
 
 
 class PaperConfiguration(object):

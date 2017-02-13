@@ -2,7 +2,7 @@ import logging
 import numpy as np
 import os
 
-from constants import RNN_EXPT_DIRECTORY
+from parser.constants import RNN_EXPT_DIRECTORY
 
 def create_experiment_directory(experiment_name):
     try:

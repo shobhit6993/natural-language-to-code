@@ -1,11 +1,11 @@
 import logging
 import numpy as np
 
-from argument_parser import training_arguments_parser
-import configs
-from constants import RNN_EXPT_DIRECTORY, ACTION_CHANNEL_LABELS_PATH
-from model import Model
-import utils
+from parser.argument_parser import training_arguments_parser
+from parser import configs
+from parser.constants import RNN_EXPT_DIRECTORY, ACTION_CHANNEL_LABELS_PATH
+from parser.model import Model
+from parser import utils
 
 
 class ActionChannelModel(Model):
