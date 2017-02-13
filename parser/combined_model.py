@@ -1,4 +1,3 @@
-
 import logging
 import numpy as np
 import tensorflow as tf
@@ -28,27 +27,25 @@ class CombinedModel(object):
             `ActionFunctionModel` is to be included in the cocktail of models.
         use_trigger_fn_model (bool): Set to `True` if the trained
             `TriggerFunctionModel` is to be included in the cocktail of models.
-        t_channel_args (list): List of command-line arguments corresponding to
-            a trained and saved `TriggerChannelModel` instance.
-        a_channel_args (list): List of command-line arguments corresponding to
-            a trained and saved `ActionChannelModel` instance.
-        t_fn_args (list): List of command-line arguments corresponding to
-            a trained and saved `TriggerFunctionModel` instance.
-        t_fn_args (list): List of command-line arguments corresponding to
-            a trained and saved `ActionFunctionModel` instance.
     """
-    t_channel_arg_str = "--log-level INFO --model TriggerChannelModel --experiment-name trigger-channel-1/trigger-channel-1-0 trigger-channel-1/trigger-channel-1-6 trigger-channel-1/trigger-channel-1-7 trigger-channel-1/trigger-channel-1-4 trigger-channel-1/trigger-channel-1-1 trigger-channel-1/trigger-channel-1-3 trigger-channel-1/trigger-channel-1-8 trigger-channel-1/trigger-channel-1-5 trigger-channel-1/trigger-channel-1-9 trigger-channel-1/trigger-channel-1-2 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-channel-1/trigger-channel-1-0/model-18 ./experiments/rnn/trigger-channel-1/trigger-channel-1-6/model-21 ./experiments/rnn/trigger-channel-1/trigger-channel-1-7/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-4/model-23 ./experiments/rnn/trigger-channel-1/trigger-channel-1-1/model-19 ./experiments/rnn/trigger-channel-1/trigger-channel-1-3/model-16 ./experiments/rnn/trigger-channel-1/trigger-channel-1-8/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-5/model-24 ./experiments/rnn/trigger-channel-1/trigger-channel-1-9/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-2/model-18"
-    """`t_channel_arg_str`: Command-line arguments for loading an ensemble of
-        `TriggerChannelModel` models."""
-    a_channel_arg_str = "--log-level INFO --model ActionChannelModel --experiment-name action-channel-1/action-channel-1-7/ action-channel-1/action-channel-1-2/ action-channel-1/action-channel-1-5/ action-channel-1/action-channel-1-0/ action-channel-1/action-channel-1-4/ action-channel-1/action-channel-1-9/ action-channel-1/action-channel-1-1/ action-channel-1/action-channel-1-6/ action-channel-1/action-channel-1-8/ action-channel-1/action-channel-1-3/ --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-channel-1/action-channel-1-7/model-15 ./experiments/rnn/action-channel-1/action-channel-1-2/model-13 ./experiments/rnn/action-channel-1/action-channel-1-5/model-14 ./experiments/rnn/action-channel-1/action-channel-1-0/model-10 ./experiments/rnn/action-channel-1/action-channel-1-4/model-15 ./experiments/rnn/action-channel-1/action-channel-1-9/model-13 ./experiments/rnn/action-channel-1/action-channel-1-1/model-10 ./experiments/rnn/action-channel-1/action-channel-1-6/model-15 ./experiments/rnn/action-channel-1/action-channel-1-8/model-14 ./experiments/rnn/action-channel-1/action-channel-1-3/model-11"
-    """`a_channel_arg_str`: Command-line arguments for loading an ensemble of
-        `ActionChannelModel` models."""
-    t_fn_arg_str = "--log-level INFO --model TriggerFunctionModel --experiment-name trigger-func-35/trigger-func-35-1 trigger-func-35/trigger-func-35-6 trigger-func-35/trigger-func-35-2 trigger-func-35/trigger-func-35-8 trigger-func-35/trigger-func-35-9 trigger-func-35/trigger-func-35-3 trigger-func-35/trigger-func-35-7 trigger-func-35/trigger-func-35-4 trigger-func-35/trigger-func-35-0 trigger-func-35/trigger-func-35-5 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-func-35/trigger-func-35-1/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-6/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-2/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-8/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-9/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-3/model-18 ./experiments/rnn/trigger-func-35/trigger-func-35-7/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-4/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-0/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-5/model-17"
-    """`t_fn_arg_str`: Command-line arguments for loading an ensemble of
-        `TriggerFunctionModel` models."""
-    a_fn_arg_str = "--log-level INFO --model ActionFunctionModel --experiment-name action-func-1/action-func-1-6 action-func-1/action-func-1-1 action-func-1/action-func-1-8 action-func-1/action-func-1-4 action-func-1/action-func-1-2 action-func-1/action-func-1-7 action-func-1/action-func-1-9 action-func-1/action-func-1-0 action-func-1/action-func-1-5 action-func-1/action-func-1-3 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-func-1/action-func-1-6/model-19 ./experiments/rnn/action-func-1/action-func-1-1/model-17 ./experiments/rnn/action-func-1/action-func-1-8/model-21 ./experiments/rnn/action-func-1/action-func-1-4/model-22 ./experiments/rnn/action-func-1/action-func-1-2/model-18 ./experiments/rnn/action-func-1/action-func-1-7/model-18 ./experiments/rnn/action-func-1/action-func-1-9/model-21 ./experiments/rnn/action-func-1/action-func-1-0/model-20 ./experiments/rnn/action-func-1/action-func-1-5/model-21 ./experiments/rnn/action-func-1/action-func-1-3/model-15"
-    """`a_fn_arg_str`: Command-line arguments for loading an ensemble of
-        `ActionFunctionModel` models."""
+    _t_channel_arg_str = "--log-level INFO --model TriggerChannelModel --experiment-name trigger-channel-1/trigger-channel-1-0 trigger-channel-1/trigger-channel-1-6 trigger-channel-1/trigger-channel-1-7 trigger-channel-1/trigger-channel-1-4 trigger-channel-1/trigger-channel-1-1 trigger-channel-1/trigger-channel-1-3 trigger-channel-1/trigger-channel-1-8 trigger-channel-1/trigger-channel-1-5 trigger-channel-1/trigger-channel-1-9 trigger-channel-1/trigger-channel-1-2 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-channel-1/trigger-channel-1-0/model-18 ./experiments/rnn/trigger-channel-1/trigger-channel-1-6/model-21 ./experiments/rnn/trigger-channel-1/trigger-channel-1-7/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-4/model-23 ./experiments/rnn/trigger-channel-1/trigger-channel-1-1/model-19 ./experiments/rnn/trigger-channel-1/trigger-channel-1-3/model-16 ./experiments/rnn/trigger-channel-1/trigger-channel-1-8/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-5/model-24 ./experiments/rnn/trigger-channel-1/trigger-channel-1-9/model-14 ./experiments/rnn/trigger-channel-1/trigger-channel-1-2/model-18"
+    _a_channel_arg_str = "--log-level INFO --model ActionChannelModel --experiment-name action-channel-1/action-channel-1-7/ action-channel-1/action-channel-1-2/ action-channel-1/action-channel-1-5/ action-channel-1/action-channel-1-0/ action-channel-1/action-channel-1-4/ action-channel-1/action-channel-1-9/ action-channel-1/action-channel-1-1/ action-channel-1/action-channel-1-6/ action-channel-1/action-channel-1-8/ action-channel-1/action-channel-1-3/ --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-channel-1/action-channel-1-7/model-15 ./experiments/rnn/action-channel-1/action-channel-1-2/model-13 ./experiments/rnn/action-channel-1/action-channel-1-5/model-14 ./experiments/rnn/action-channel-1/action-channel-1-0/model-10 ./experiments/rnn/action-channel-1/action-channel-1-4/model-15 ./experiments/rnn/action-channel-1/action-channel-1-9/model-13 ./experiments/rnn/action-channel-1/action-channel-1-1/model-10 ./experiments/rnn/action-channel-1/action-channel-1-6/model-15 ./experiments/rnn/action-channel-1/action-channel-1-8/model-14 ./experiments/rnn/action-channel-1/action-channel-1-3/model-11"
+    _t_fn_arg_str = "--log-level INFO --model TriggerFunctionModel --experiment-name trigger-func-35/trigger-func-35-1 trigger-func-35/trigger-func-35-6 trigger-func-35/trigger-func-35-2 trigger-func-35/trigger-func-35-8 trigger-func-35/trigger-func-35-9 trigger-func-35/trigger-func-35-3 trigger-func-35/trigger-func-35-7 trigger-func-35/trigger-func-35-4 trigger-func-35/trigger-func-35-0 trigger-func-35/trigger-func-35-5 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/trigger-func-35/trigger-func-35-1/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-6/model-20 ./experiments/rnn/trigger-func-35/trigger-func-35-2/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-8/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-9/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-3/model-18 ./experiments/rnn/trigger-func-35/trigger-func-35-7/model-21 ./experiments/rnn/trigger-func-35/trigger-func-35-4/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-0/model-19 ./experiments/rnn/trigger-func-35/trigger-func-35-5/model-17"
+    _a_fn_arg_str = "--log-level INFO --model ActionFunctionModel --experiment-name action-func-1/action-func-1-6 action-func-1/action-func-1-1 action-func-1/action-func-1-8 action-func-1/action-func-1-4 action-func-1/action-func-1-2 action-func-1/action-func-1-7 action-func-1/action-func-1-9 action-func-1/action-func-1-0 action-func-1/action-func-1-5 action-func-1/action-func-1-3 --use-names-descriptions --use-gold --saved-model-path ./experiments/rnn/action-func-1/action-func-1-6/model-19 ./experiments/rnn/action-func-1/action-func-1-1/model-17 ./experiments/rnn/action-func-1/action-func-1-8/model-21 ./experiments/rnn/action-func-1/action-func-1-4/model-22 ./experiments/rnn/action-func-1/action-func-1-2/model-18 ./experiments/rnn/action-func-1/action-func-1-7/model-18 ./experiments/rnn/action-func-1/action-func-1-9/model-21 ./experiments/rnn/action-func-1/action-func-1-0/model-20 ./experiments/rnn/action-func-1/action-func-1-5/model-21 ./experiments/rnn/action-func-1/action-func-1-3/model-15"
+
+    _arg_parser = model_arg_parser.testing_arguments_parser()
+    t_channel_args = _arg_parser.parse_args(_t_channel_arg_str.split(' '))
+    """`t_channel_args`: Parsed command-line arguments for loading an ensemble
+            of `TriggerChannelModel` models."""
+    a_channel_args = _arg_parser.parse_args(_a_channel_arg_str.split(' '))
+    """`a_channel_args`: Parsed command-line arguments for loading an
+            ensemble of `ActionChannelModel` models."""
+    t_fn_args = _arg_parser.parse_args(_t_fn_arg_str.split(' '))
+    """`t_fn_args`: Parsed command-line arguments for loading an ensemble of
+            `TriggerFunctionModel` models."""
+    a_fn_args = _arg_parser.parse_args(_a_fn_arg_str.split(' '))
+    """`a_fn_args`: Parsed command-line arguments for loading an ensemble of
+            `ActionFunctionModel` models."""
 
     def __init__(self, use_trigger_channel_model=True,
                  use_action_channel_model=True, use_trigger_fn_model=True,
@@ -74,16 +71,6 @@ class CombinedModel(object):
         self.use_action_channel_model = use_action_channel_model
         self.use_trigger_fn_model = use_trigger_fn_model
         self.use_action_fn_model = use_action_fn_model
-
-        arg_parser = model_arg_parser.testing_arguments_parser()
-        self.t_channel_args = arg_parser.parse_args(
-            CombinedModel.t_channel_arg_str.split(' '))
-        self.a_channel_args = arg_parser.parse_args(
-            CombinedModel.a_channel_arg_str.split(' '))
-        self.t_fn_args = arg_parser.parse_args(
-            CombinedModel.t_fn_arg_str.split(' '))
-        self.a_fn_args = arg_parser.parse_args(
-            CombinedModel.a_fn_arg_str.split(' '))
 
     def test_models(self):
         """Evaluates the trained models on a common set of test examples.
@@ -113,7 +100,7 @@ class CombinedModel(object):
 
         ensembles = []
         for arg, model_class in zip(args, model_classes):
-            ensembles.append(self._create_ensemble(arg, model_class))
+            ensembles.append(self.create_ensemble(arg, model_class))
 
         n = len(ensembles[0].test_data()[0])
         mistakes = np.array([False] * n)
@@ -126,7 +113,8 @@ class CombinedModel(object):
         error = np.mean(mistakes)
         logging.info("Combined Error = %s", error)
 
-    def _create_ensemble(self, args, model_class):
+    @staticmethod
+    def create_ensemble(args, model_class):
         """Creates an ensemble of models defined by the `model_class` and passed
         command-line arguments `args`.
 
@@ -143,7 +131,7 @@ class CombinedModel(object):
         """
         assert (len(args.experiment_name) == len(args.saved_model_path))
         config = configs.PaperConfiguration
-        self._log_configurations(config)
+        CombinedModel._log_configurations(config)
 
         num_models = len(args.experiment_name)
         models = []
@@ -184,6 +172,7 @@ class CombinedModel(object):
         logging.info("Use Names and Descriptions: %s",
                      args.use_names_descriptions)
 
+    @staticmethod
     def _log_configurations(self, config):
         """Logs the configurations being used.
 
