@@ -7,7 +7,7 @@ determine the total error in predicting recipes' channels.
 
 import logging
 
-from combined_model import CombinedModel
+from parser.combined_model import CombinedModel
 
 
 def main():
