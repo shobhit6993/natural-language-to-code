@@ -2,14 +2,14 @@ import logging
 import numpy as np
 import tensorflow as tf
 
-from action_channel_model import ActionChannelModel
-from action_function_model import ActionFunctionModel
-import configs
-from constants import RNN_EXPT_DIRECTORY
-from ensembled_model import EnsembledModel
+from parser.action_channel_model import ActionChannelModel
+from parser.action_function_model import ActionFunctionModel
+from parser import configs
+from parser.constants import RNN_EXPT_DIRECTORY
+from parser.ensembled_model import EnsembledModel
 import parser.argument_parser as model_arg_parser
-from trigger_function_model import TriggerFunctionModel
-from trigger_channel_model import TriggerChannelModel
+from parser.trigger_function_model import TriggerFunctionModel
+from parser.trigger_channel_model import TriggerChannelModel
 
 
 class CombinedModel(object):
@@ -173,7 +173,7 @@ class CombinedModel(object):
                      args.use_names_descriptions)
 
     @staticmethod
-    def _log_configurations(self, config):
+    def _log_configurations(config):
         """Logs the configurations being used.
 
         Configurations refer to the values for various hyper-parameters of the

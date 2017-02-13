@@ -5,15 +5,15 @@ Generate predictions online using a model loaded from a checkpoint.
 import logging
 import tensorflow as tf
 
-from action_channel_model import ActionChannelModel
-from action_function_model import ActionFunctionModel
-from argument_parser import prediction_arguments_parser
-import configs
-from constants import RNN_EXPT_DIRECTORY
-from ensembled_model import EnsembledModel
-from trigger_function_model import TriggerFunctionModel
-from trigger_channel_model import TriggerChannelModel
-import utils
+from parser.action_channel_model import ActionChannelModel
+from parser.action_function_model import ActionFunctionModel
+from parser.argument_parser import prediction_arguments_parser
+from parser import configs
+from parser.constants import RNN_EXPT_DIRECTORY
+from parser.ensembled_model import EnsembledModel
+from parser.trigger_function_model import TriggerFunctionModel
+from parser.trigger_channel_model import TriggerChannelModel
+from parser import utils
 
 
 def parse_args():

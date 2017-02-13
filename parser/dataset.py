@@ -12,11 +12,12 @@ import pickle
 from nltk.tokenize import TweetTokenizer
 from nltk.stem import SnowballStemmer
 
-from configs import PaperConfiguration
-from constants import NULL, NUM_SPECIAL_TOKENS, TurkLabels, UNK, VOCAB_FILE
-from constants import DATA_ROOT, TEST_CSV, TRAIN_CSV, TURK_CSV, VALIDATE_CSV
-from label import Label
-from synthetic_dataset import SyntheticDataset
+from parser.configs import PaperConfiguration
+from parser.constants import NULL, NUM_SPECIAL_TOKENS, UNK
+from parser.constants import DATA_ROOT, VOCAB_FILE, TurkLabels
+from parser.constants import TEST_CSV, TRAIN_CSV, TURK_CSV, VALIDATE_CSV
+from parser.label import Label
+from parser.synthetic_dataset import SyntheticDataset
 
 
 class Dataset(object):

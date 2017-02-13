@@ -8,10 +8,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-from constants import EVALUATION_FREQ, STOP_FILE, VOCAB_FILE
-from dataset import Dataset
-from rnn import LatentAttentionNetwork
-from utils import softmax
+from parser.constants import EVALUATION_FREQ, STOP_FILE, VOCAB_FILE
+from parser.dataset import Dataset
+from parser.rnn import LatentAttentionNetwork
+from parser.utils import softmax
 
 
 class Model(object):
