@@ -247,7 +247,7 @@ class UtteranceParser(object):
         utterance = utterance + " on " + name
         preds = self._parse_fn_based_on_channel(self.action_fn_model,
                                                 utterance, channel)
-        logging.debug("Action Channel prediction from RNN conditioned on "
+        logging.debug("Action Function prediction from RNN conditioned on "
                       "channel: %s", preds[0])
         return {Slot.action_fn: preds[0]}
 
@@ -313,7 +313,7 @@ class UtteranceParser(object):
         """
         trigger_channel_preds = self.keyword_model.predict_trigger_channel(
             input=utterance, k=1)
-        logging.debug("Trigger Function prediction from Keyword model: %s",
+        logging.debug("Trigger Channel prediction from Keyword model: %s",
                       trigger_channel_preds[0])
         return {Slot.trigger_channel: trigger_channel_preds[0]}
 
@@ -335,7 +335,7 @@ class UtteranceParser(object):
         """
         action_channel_preds = self.keyword_model.predict_action_channel(
             input=utterance, k=1)
-        logging.debug("Action Function prediction from Keyword model: %s",
+        logging.debug("Action Channel prediction from Keyword model: %s",
                       action_channel_preds[0])
         return {Slot.action_channel: action_channel_preds[0]}
 
