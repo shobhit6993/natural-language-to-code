@@ -81,7 +81,7 @@ def fail(request):
     return HttpResponse("")
 
 
-def first_utterance(request):
+def open_dialog(request):
     def log_utterance(sys_utterance):
         user_id = request.session['user_id']
         file_path = configs.log_directory + str(user_id) + ".log"
@@ -90,12 +90,27 @@ def first_utterance(request):
             f.write("ROBOT:" + sys_utterance + "\n")
         logging.info("%s: Logged first system utterance.", user_id)
 
-    sys_utterance = request.session['dialog_agent'].open_dialog()
-    request.session.modified = True
-    # Log system utterance
-    log_utterance(sys_utterance)
-    return HttpResponse(sys_utterance)
+    def log_utterances(user_utterance, sys_utterance):
+        user_id = request.session['user_id']
+        file_path = configs.log_directory + str(user_id) + ".log"
+        with open(file_path, 'a') as f:
+            f.write("USER:" + user_utterance + "\n")
+            f.write("ROBOT:" + sys_utterance + "\n")
+        logging.info("%s: Logged user and system utterances.", user_id)
 
+    dialog_agent = request.session['dialog_agent']
+    sys_utterance_1 = dialog_agent.open_dialog()
+    user_utterance = request.session['description']
+    sys_utterance_2 = dialog_agent.generate_system_response(
+        user_utterance, Parsers.utterance_parser)
+    request.session.modified = True
+
+    # Log utterances
+    log_utterance(sys_utterance_1)
+    log_utterances(user_utterance, sys_utterance_2)
+    return JsonResponse({"sys_utterance_1": sys_utterance_1,
+                         "sys_utterance_2": sys_utterance_2,
+                         "user_utterance": user_utterance})
 
 def read_user_utterance(request):
     def log_utterances(user_utterance, sys_utterance):

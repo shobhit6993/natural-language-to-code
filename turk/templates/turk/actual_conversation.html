@@ -38,6 +38,10 @@
             <i>"{{action_fn}}"</i>. You should describe these to the bot
             in your own language with proper English.
         </p>
+        <p>
+            The initial description of the task has already been provided to the bot on your behalf.
+            Answer the clarification questions it may ask.
+        </p>
     </div>
     <div>
         <button type="button" id="start" value="Start">Start</button>
@@ -72,6 +76,6 @@
    var action_channel_id = "{{ action_channel }}";
    var survey_url = "{% url 'turk:survey' %}";
    var read_user_utterance_url = "{% url 'turk:read_user_utterance' %}";
-   var first_utterance_url = "{% url 'turk:first_utterance' %}";
+   var open_dialog_url = "{% url 'turk:open_dialog' %}";
 </script>
 <script type="text/javascript" src="{% static 'turk/js/actual-conversation.js' %}"></script>

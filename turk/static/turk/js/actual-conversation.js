@@ -13,14 +13,24 @@ $('#start').on('click', function(e) {
     var robot_utterance = "typing..."
     $.ajax({
         type: "GET",
-        url: first_utterance_url,
+        url: open_dialog_url,
         headers: {
             'X-CSRFToken': getCookie('csrftoken'),
             'sessionid':getCookie('sessionid')
         },
-        success: function (data) {
-            robot_utterance = data;
-            $($("#form-row").prev().find('td')[1]).html(robot_utterance)
+        success: function (json_response) {
+            robot_utterance_1 = json_response['sys_utterance_1']
+            robot_utterance_2 = json_response['sys_utterance_2']
+            user_utterance = json_response['user_utterance']
+
+            // Row for robot's first utterance.
+            $($("#form-row").prev().find('td')[1]).html(robot_utterance_1)
+            // Row for automatically generated user utterance.
+            user_row = $('<tr><td style="width:10%">YOU:</td><td style="width:90%">' + user_utterance + '</td></tr>');
+            $("#form-row").before(user_row);
+            // Row for robot's second utterance.
+            robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">' + robot_utterance_2 + '</td></tr>');
+            $("#form-row").before(robot_row);
             $("#input-box").prop('disabled', false)
             $("#input-box").focus();
         },

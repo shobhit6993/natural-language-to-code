@@ -21,7 +21,7 @@ class TurkConfig(AppConfig):
                             format='%(levelname)s: %(asctime)s: %(message)s')
         log_configs(args)
         Parsers.load_parsers()
-        Recipes.load_recipes_from_test_set(args)
+        Recipes.load_recipes_from_file(args)
         IftttUtils.load_ifttt_functions(args.trigger_fns_csv,
                                         args.action_fns_csv)
 

@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^actual_task/*$', views.actual_task, name="actual_task"),
     url(r'^actual_conversation/*$', views.actual_conversation,
         name="actual_conversation"),
-    url(r'^first_utterance/*$', views.first_utterance, name="first_utterance"),
+    url(r'^first_utterance/*$', views.open_dialog, name="open_dialog"),
     url(r'^read_user_utterance/*$', views.read_user_utterance,
         name="read_user_utterance"),
     url(r'^fail/*$', views.fail, name="fail"),

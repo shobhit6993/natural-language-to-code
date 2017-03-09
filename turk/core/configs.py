@@ -10,4 +10,4 @@ class Configs(object):
     action_fns_csv = "./ifttt/data/label-maps/action-functions.csv"
     log_directory = "./experiments/turk/dummy/"
 
-    recipes_file = "./ifttt/data/misc/recipes_hard.csv"
+    recipes_file = "./ifttt/data/misc/gold_hard.csv"
