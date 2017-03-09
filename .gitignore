@@ -2,6 +2,7 @@ stop
 todo
 .idea
 experiments/rnn/*
+experiments/dialog/*
 ifttt/*
 
 
