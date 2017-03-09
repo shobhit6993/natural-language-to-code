@@ -1,0 +1,110 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+
+<div id="warning">
+    Do not navigate away from or refresh the page until you have completed all
+    tasks and the exit survey to receive your code. Leaving or refreshing the
+    page <b>will</b> prevent you from completing this HIT.
+</div>
+
+<div>
+    <p>
+        Thank you for completing the HIT; we appreciate your time. Please fill out
+        the survey below based on your experience with this HIT.
+    </p>
+    <p>
+        Once you have submitted the survey, you'll receive a code.
+        Enter this code on the Amazon Mechanical Turk page (from where you came to this page)
+        to make sure we can associate you with the HIT you just completed and pay you.
+    </p>
+</div>
+<hr>
+<div>
+    <form name="survey-form" id="survey-form" action="{% url 'turk:save_survey' %}" method="post">
+        {% csrf_token %}
+        <p> <b>1.</b> The tasks were easy to understand.
+            <table style="width:50%">
+                <tr align="center" bgcolor='ghostwhite'>
+                    <td style="width:20%">Strongly disagree</td>
+                    <td style="width:20%">Somewhat disagree</td>
+                    <td style="width:20%">Neutral</td>
+                    <td style="width:20%">Somewhat agree</td>
+                    <td style="width:20%">Strongly agree</td>
+                </tr>
+                <tr align="center" bgcolor='aliceblue'>
+                    <td style="width:20%"><input type="radio" name="easy" value="0"></td>
+                    <td style="width:20%"><input type="radio" name="easy" value="1"></td>
+                    <td style="width:20%"><input type="radio" name="easy" value="2"></td>
+                    <td style="width:20%"><input type="radio" name="easy" value="3"></td>
+                    <td style="width:20%"><input type="radio" name="easy" value="4"></td>
+                </tr>
+            </table>
+        </p>
+        <p> <b>2.</b> The robot understood my messages.
+            <table style="width:50%">
+                <tr align="center" bgcolor='ghostwhite'>
+                    <td style="width:20%">Strongly disagree</td>
+                    <td style="width:20%">Somewhat disagree</td>
+                    <td style="width:20%">Neutral</td>
+                    <td style="width:20%">Somewhat agree</td>
+                    <td style="width:20%">Strongly agree</td>
+                </tr>
+                <tr align="center" bgcolor='aliceblue'>
+                    <td style="width:20%"><input type="radio" name="understand" value="0"></td>
+                    <td style="width:20%"><input type="radio" name="understand" value="1"></td>
+                    <td style="width:20%"><input type="radio" name="understand" value="2"></td>
+                    <td style="width:20%"><input type="radio" name="understand" value="3"></td>
+                    <td style="width:20%"><input type="radio" name="understand" value="4"></td>
+                </tr>
+            </table>
+        </p>
+        <p> <b>3.</b> The robot asked sensible questions.
+            <table style="width:50%">
+                <tr align="center" bgcolor='ghostwhite'>
+                    <td style="width:20%">Strongly disagree</td>
+                    <td style="width:20%">Somewhat disagree</td>
+                    <td style="width:20%">Neutral</td>
+                    <td style="width:20%">Somewhat agree</td>
+                    <td style="width:20%">Strongly agree</td>
+                </tr>
+                <tr align="center" bgcolor='aliceblue'>
+                    <td style="width:20%"><input type="radio" name="sensible" value="0"></td>
+                    <td style="width:20%"><input type="radio" name="sensible" value="1"></td>
+                    <td style="width:20%"><input type="radio" name="sensible" value="2"></td>
+                    <td style="width:20%"><input type="radio" name="sensible" value="3"></td>
+                    <td style="width:20%"><input type="radio" name="sensible" value="4"></td>
+                </tr>
+            </table>
+        </p>
+        <p> <b>4.</b> The conversation was too long.
+            <table style="width:50%">
+                <tr align="center" bgcolor='ghostwhite'>
+                    <td style="width:20%">Strongly disagree</td>
+                    <td style="width:20%">Somewhat disagree</td>
+                    <td style="width:20%">Neutral</td>
+                    <td style="width:20%">Somewhat agree</td>
+                    <td style="width:20%">Strongly agree</td>
+                </tr>
+                <tr align="center" bgcolor='aliceblue'>
+                    <td style="width:20%"><input type="radio" name="long" value="0"></td>
+                    <td style="width:20%"><input type="radio" name="long" value="1"></td>
+                    <td style="width:20%"><input type="radio" name="long" value="2"></td>
+                    <td style="width:20%"><input type="radio" name="long" value="3"></td>
+                    <td style="width:20%"><input type="radio" name="long" value="4"></td>
+                </tr>
+            </table>
+        </p>
+        <p> <b>5.</b> Feel free to leave comments on your experience (optional):<br>
+            <textarea id="comment" name="comment" form="survey-form" style="width:50%" rows="4"></textarea>
+        </p>
+
+        <input type="submit" id="survey_submit" value="Submit">
+        <div id="error-message"></div>
+    </form>
+</div>
+
+<script type="text/javascript" src="{% static 'turk/js/utils.js' %}"></script>
+<script type="text/javascript" src="{% static 'turk/js/survey.js' %}"></script>

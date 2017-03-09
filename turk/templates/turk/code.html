@@ -1,0 +1,21 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+<div>
+    <p>
+        Thank you for participating in the HIT. Your code is:
+    </p>
+    <h3>{{code}}</h3>
+    <p>
+        Please enter this code on the Amazon Mechanical Turk page (from where you came to this page)
+        to make sure we can associate you with the HIT you just completed and pay you.
+    </p>
+    <p>
+        You may now close this page.
+    </p>
+</div>
+<br/>
+
+<!--<script type="text/javascript" src="{% static 'turk/js/code.js' %}"></script>-->

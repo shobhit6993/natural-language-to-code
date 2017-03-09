@@ -1,0 +1,71 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+
+<div id="warning">
+    Do not navigate away from or refresh the page until you have completed all
+    tasks and the exit survey to receive your code. Leaving or refreshing the
+    page <b>will</b> prevent you from completing this HIT.
+</div>
+
+<div>
+    <p>
+        This exercise is meant you help you get an idea of how to chat with the
+        bot to describe the task that you want it to automate.
+    </p>
+    <p>
+        You'll walk through a sample conversation with the bot to describe the
+        task you saw on the last page. The task is summarized below for your reference.
+    </p>
+    <p>
+        At each step in the conversation, select the message that you consider
+        most meaningful in order to explain the task to the bot. Try to use
+        simple words, and do <b>not</b> try to replicate the language used in the "TASK DESCRIPTION" below.
+    </p>
+
+</div>
+<hr>
+<div>
+    <h3>TASK DESCRIPTION:</h3>
+    <p><i>"{{ description }}"</i></p>
+    <p>Which event should cause the applet to run/trigger?<br><i>{{ trigger_fn }}</i></p>
+    <p>On which service should the above event happen?<br><i>{{ trigger_channel }}</i></p>
+    <p>What action should be taken when the applet runs/triggers?<br><i>{{ action_fn }}</i></p>
+    <p>Which service should be used to perform the action?<br><i>{{ action_channel }}</i></p>
+</div>
+<hr>
+<div>
+    <h3>CONVERSATION:</h3>
+    <div>
+        <p>
+            Note that the above names are only representative. <b>The bot will not
+            directly understand words like</b> <i>"{{trigger_fn}}"</i>, or
+            <i>"{{action_fn}}"</i>. You should describe these to the bot
+            in your own language with proper English.
+        </p>
+    </div>
+    <div>
+        <button type="button" id="start" value="Start">Start</button>
+        <table id="conversation" style="width:100%">
+            <tr id="form-row">
+                <td style="width:10%">YOU:</td>
+                <td style="width:90%">
+                    <form id="dialog-form" method="post" action=".">
+                        {% csrf_token %}
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <div id="message"></div>
+    <button type="button" id="continue" value="Continue">Continue</button>
+</div>
+
+<script type="text/javascript" src="{% static 'turk/js/utils.js' %}"></script>
+<script>
+   var actual_task_url = "{% url 'turk:actual_task' %}";
+</script>
+<script type="text/javascript" src="{% static 'turk/js/sample-conversation.js' %}"></script>

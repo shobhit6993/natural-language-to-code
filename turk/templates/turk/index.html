@@ -1,0 +1,32 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+<div id="warning">
+    Do not navigate away from or refresh the page until you have completed all
+    tasks and the exit survey to receive your code. Leaving or refreshing the
+    page <b>will</b> prevent you from completing this HIT.
+</div>
+
+<div>
+    <p>
+        The objective of this HIT is to command a bot to create an applet to
+        automate some task. You will chat with the bot to describe the task.
+        You should chat with the bot as if it were a person.
+        The bot assumes commands to be:
+    </p>
+    <ul>
+        <li>in a single sentence,</li>
+        <li>fairly short, and</li>
+        <li>grammatical.</li>
+    </ul>
+
+    To give you an idea of the HIT, you will now be presented an example task,
+    and you'll walk through a sample conversation with such a bot.
+</div>
+<br/>
+
+<form action="{% url 'turk:sample_task' %}" method="get">
+    <input type="submit" value="Continue">
+</form>

@@ -1,0 +1,77 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+
+<div id="warning">
+    Do not navigate away from or refresh the page until you have completed all
+    tasks and the exit survey to receive your code. Leaving or refreshing the
+    page <b>will</b> prevent you from completing this HIT.
+</div>
+
+<div>
+    <p>
+        Chat with the bot to create an applet to automate the task described on the previous page.
+        The task is summarized below for your reference. The bot might ask you
+        questions during the conversation; try to keep your responses short and
+        clear, using proper English.
+    </p>
+    <p>
+        Try to use simple words, and ,<b>do <u>not</u> try to replicate the language used in
+        the "TASK DESCRIPTION" below.</b>
+    </p>
+    <p>
+        If the conversation extends too long, you may end it by replying "stop" (without quotes),
+        but ending the conversation before fifteen responses from your side without successfully
+        communicating the task <b>will</b> invalidate your HIT.
+    </p>
+
+</div>
+<hr>
+<div>
+    <h3>TASK DESCRIPTION:</h3>
+    <p><i>"{{ description }}"</i></p>
+    <p>Which event should cause the applet to run/trigger?<br><i>{{ trigger_fn }}</i></p>
+    <p>On which service should the above event happen?<br><i>{{ trigger_channel }}</i></p>
+    <p>What action should be taken when the applet runs/triggers?<br><i>{{ action_fn }}</i></p>
+    <p>Which service should be used to perform the action?<br><i>{{ action_channel }}</i></p>
+</div>
+<hr>
+<div>
+    <h3>CONVERSATION:</h3>
+    <div>
+        <p>
+            Note that the above names are only representative. <b>The bot will not
+            directly understand words like</b> <i>"{{trigger_fn}}"</i>, or
+            <i>"{{action_fn}}"</i>. You should describe these to the bot
+            in your own language with proper English.
+        </p>
+    </div>
+    <div>
+        <button type="button" id="start" value="Start">Start</button>
+        <table id="conversation" style="width:100%">
+            <tr id="form-row">
+                <td style="width:10%">YOU:</td>
+                <td style="width:90%">
+                    <form id="dialog-form" method="post" action=".">
+                        {% csrf_token %}
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <div id="message"></div>
+    <button type="button" id="continue" value="Continue">Continue</button>
+</div>
+
+<script type="text/javascript" src="{% static 'turk/js/utils.js' %}"></script>
+<script>
+   var trigger_channel_id = "{{ trigger_channel }}";
+   var action_channel_id = "{{ action_channel }}";
+   var survey_url = "{% url 'turk:survey' %}";
+   var read_user_utterance_url = "{% url 'turk:read_user_utterance' %}";
+   var first_utterance_url = "{% url 'turk:first_utterance' %}";
+</script>
+<script type="text/javascript" src="{% static 'turk/js/actual-conversation.js' %}"></script>

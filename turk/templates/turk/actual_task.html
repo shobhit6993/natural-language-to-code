@@ -1,0 +1,73 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'turk/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'turk/js/jquery-3.1.1.min.js' %}"></script>
+
+
+<div id="warning">
+    Do not navigate away from or refresh the page until you have completed all
+    tasks and the exit survey to receive your code. Leaving or refreshing the
+    page <b>will</b> prevent you from completing this HIT.
+</div>
+
+<div>
+    <p>
+        Below is the task that needs to be automated. The bot should create an applet
+        to automate this task.
+    </p>
+    <p>
+        Before conversing with the bot, answer the following questions based on the
+        description of the task to demonstrate that you have understood the task. In
+        case of confusion between two or more options, make an educated guess.
+    </p>
+
+</div>
+<hr>
+<div>
+    <h3>TASK DESCRIPTION:</h3>
+    <p><i>"{{ description }}"</i></p>
+    <h3>Questions:</h3>
+    <form id="applet-form" method="post" action="{% url 'turk:check_answers' %}">
+        {% csrf_token %}
+        To create an applet to automate the above task, answer the following questions:
+        <p>
+            Which event should cause the applet to run/trigger?<br>
+            {% for fn in trigger_fns %}
+                <input type="radio" name="trigger_fn" value="{{fn}}">{{fn}}<br>
+            {% endfor %}
+        </p>
+
+        <p>
+            On which service should the above event happen?<br>
+            {% for channel in channels %}
+                <input type="radio" name="trigger_channel" value="{{channel}}">{{channel}}<br>
+            {% endfor %}
+        </p>
+
+        <p>
+            What action should be taken when the applet runs/triggers?<br>
+            {% for fn in action_fns %}
+                <input type="radio" name="action_fn" value="{{fn}}">{{fn}}<br>
+            {% endfor %}
+        </p>
+
+        <p>
+            Which service should be used to perform the action?<br>
+            {% for channel in channels %}
+                <input type="radio" name="action_channel" value="{{channel}}">{{channel}}<br>
+            {% endfor %}
+        </p>
+        <input type="submit" id="submit" value="Submit">
+        <div id="error-message"></div>
+        <button type="button" id="continue" value="Continue">Continue</button>
+        <button type="button" id="code" value="Get Code">Get Code</button>
+    </form>
+</div>
+
+<script type="text/javascript" src="{% static 'turk/js/utils.js' %}"></script>
+<script>
+   var fail_url = "{% url 'turk:fail' %}";
+   var actual_conversation_url = "{% url 'turk:actual_conversation' %}";
+   var code_url = "{% url 'turk:code' %}";
+</script>
+<script type="text/javascript" src="{% static 'turk/js/actual-task.js' %}"></script>

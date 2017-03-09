@@ -1,0 +1,21 @@
+#warning {
+    color: red;
+}
+
+#instructions {
+    color: blue;
+}
+
+div#error-message {
+    background: red
+}
+
+div {
+    width: 800px
+}
+
+tr {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}​
