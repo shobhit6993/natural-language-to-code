@@ -1,3 +1,4 @@
+import csv
 from enum import Enum
 import logging
 import random
@@ -30,7 +31,24 @@ class Recipes(object):
             use_gold=args.use_gold)
         cls._add_indices_to_recipes()
         cls._initialize_recipes_status()
-        logging.info("Recipes loaded")
+        logging.info("Recipes loaded.")
+
+    @classmethod
+    def load_recipes_from_file(cls, args):
+        """Loads the recipes from csv file specified by `args.recipes_file`.
+
+        Args:
+            args (`Namespace` or `configs.Configs`): Namespace containing
+                parsed arguments, or the `Configs` class where the arguments
+                are its class attributes.
+        """
+        with open(args.recipes_file, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                cls._recipes.append(row)
+        cls._add_indices_to_recipes()
+        cls._initialize_recipes_status()
+        logging.info("Recipes loaded.")
 
     @classmethod
     def randomly_pick_recipe(cls):
