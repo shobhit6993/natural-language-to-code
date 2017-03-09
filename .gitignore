@@ -3,8 +3,9 @@ todo
 .idea
 experiments/rnn/*
 experiments/dialog/*
+experiments/turk/*
 ifttt/*
-
+*.sqlite3
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
