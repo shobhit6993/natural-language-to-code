@@ -9,6 +9,7 @@ import dialog.run_pipeline
 from dialog.argument_parser import dialog_arguments_parser
 from dialog.configs import DialogConfiguration
 from dialog.label_description import LabelDescription
+from log_analysis.sys_utterance_analyzer import SysUtteranceAnalyzer
 from simulated_user.label_map import LabelMap
 from simulated_user.dataset import Dataset
 from simulated_user.intention import UserIntention
@@ -105,7 +106,8 @@ def start_session(recipe, trigger_channel_parser, action_channel_parser,
     user_intention = UserIntention(recipe)
     label_map = LabelMap()
     label_description = LabelDescription()
-    user_policy = UserPolicy(label_map)
+    sys_utterance_analyzer = SysUtteranceAnalyzer(label_map)
+    user_policy = UserPolicy(sys_utterance_analyzer)
     simulated_user = SimulatedUser(user_intention, user_policy,
                                    label_description)
     dialog_agent = dialog.run_pipeline.create_dialog_agent(

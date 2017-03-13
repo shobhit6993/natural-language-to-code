@@ -8,17 +8,16 @@ class UserPolicy:
     """Policy followed by a simulated user.
 
     Attributes:
-        label_map (`label_map.LabelMap`): Mapping of description of labels
-            -- Channels and Functions -- to their ids.
+        sys_utterance_analyzer (`SysUtteranceAnalyzer`): Analyzer for system
+            utterances to extract information from them.
 
     Args:
-        label_map (`label_map.LabelMap`): Mapping of description of labels
-            -- Channels and Functions -- to their ids.
-
+        sys_utterance_analyzer (`SysUtteranceAnalyzer`): Analyzer for system
+            utterances to extract information from them.
     """
 
-    def __init__(self, label_map):
-        self.label_map = label_map
+    def __init__(self, sys_utterance_analyzer):
+        self.sys_utterance_analyzer = sys_utterance_analyzer
 
     def next_action(self, system_utterance, intent):
         """Computes and returns the next user-action.
@@ -145,63 +144,41 @@ class UserPolicy:
             return UserAction(ActionType.deny)
 
     def _extract_trigger_channel_from_ask_slot(self, utterance):
-        start = len("Which event on ")
-        end = utterance.index(" should I")
-        channel_name = utterance[start:end]
-        return self.label_map.trigger_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_trigger_channel_from_ask_slot(utterance))
 
     def _extract_action_channel_from_ask_slot(self, utterance):
-        start = len("What should I do on ")
-        end = utterance.index(" every time")
-        channel_name = utterance[start:end]
-        return self.label_map.action_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_action_channel_from_ask_slot(utterance))
 
     def _extract_trigger_channel_from_confirm(self, utterance):
-        start = len("Do you want an event on ")
-        end = utterance.index(" service")
-        channel_name = utterance[start:end]
-        return self.label_map.trigger_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_trigger_channel_from_confirm(utterance))
 
     def _extract_action_channel_from_confirm(self, utterance):
-        start = len("Do you want to use ")
-        end = utterance.index(" service")
-        channel_name = utterance[start:end]
-        return self.label_map.action_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_action_channel_from_confirm(utterance))
 
     def _extract_trigger_fn_from_confirm(self, utterance, channel):
-        start = len("Do you want to trigger the applet ")
-        fn_desc = utterance[start:-1]
-        return self.label_map.trigger_fn_from_description(fn_desc, channel)
+        return (self.sys_utterance_analyzer
+                .extract_trigger_fn_from_confirm(utterance, channel))
 
     def _extract_action_fn_from_confirm(self, utterance, channel):
-        start = len("Do you want to ")
-        end = utterance.index(" every")
-        fn_desc = utterance[start:end]
-        return self.label_map.action_fn_from_description(fn_desc, channel)
+        return (self.sys_utterance_analyzer
+                .extract_action_fn_from_confirm(utterance, channel))
 
     def _extract_trigger_channel_from_inform(self, utterance):
-        start = utterance.index("It will use the ")
-        start += len("It will use the ")
-        end = utterance.index(" service to look")
-        channel_name = utterance[start:end]
-        return self.label_map.trigger_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_trigger_channel_from_inform(utterance))
 
     def _extract_action_channel_from_inform(self, utterance):
-        start = utterance.index("performed using the ")
-        start += len("performed using the ")
-        end = utterance.index(" service.")
-        channel_name = utterance[start:end]
-        return self.label_map.action_channel_from_name(channel_name)
+        return (self.sys_utterance_analyzer
+                .extract_action_channel_from_inform(utterance))
 
     def _extract_trigger_fn_from_inform(self, utterance, channel):
-        start = len("The applet will trigger ")
-        end = utterance.index(". It will")
-        fn_desc = utterance[start:end]
-        return self.label_map.trigger_fn_from_description(fn_desc, channel)
+        return (self.sys_utterance_analyzer
+                .extract_trigger_fn_from_inform(utterance, channel))
 
     def _extract_action_fn_from_inform(self, utterance, channel):
-        start = utterance.index("will be to ")
-        start += len("will be to ")
-        end = utterance.index(". This action")
-        fn_desc = utterance[start:end]
-        return self.label_map.action_fn_from_description(fn_desc, channel)
+        return (self.sys_utterance_analyzer
+                .extract_action_fn_from_inform(utterance, channel))
