@@ -22,6 +22,7 @@ $('#start').on('click', function(e) {
             robot_utterance = data;
             $($("#form-row").prev().find('td')[1]).html(robot_utterance)
             $("#input-box").prop('disabled', false)
+            $("#input-box").focus();
         },
         error: function(data) {
             $("#error-message").html("Something went wrong!");
@@ -72,7 +73,9 @@ function send_utterance_to_dialog_agent(user_utterance) {
             'user_utterance': user_utterance,
         },
         success: function (data) {
-            robot_utterance = data;
+            robot_utterance = data['system_utterance'];
+            intent = data['intent']
+            change_color_using_intent(intent)
             $($("#form-row").prev().find('td')[1]).html(robot_utterance);
             if (robot_utterance == "Ok, bye!") {
                 // End of dialog.
@@ -80,6 +83,7 @@ function send_utterance_to_dialog_agent(user_utterance) {
                 $("#continue").show();
             } else {
                 $("#input-box").prop('disabled', false);
+                $("#input-box").focus();
             }
         },
         error: function(data) {
@@ -108,4 +112,26 @@ function poor_utterance(utterance) {
         return re.test(utterance);
     }
 
+}
+
+function change_color_using_intent(intent) {
+    paragraphs = $(".right").find("p");
+
+    if (intent == "confirm" || intent == "reword") {
+        return;
+    }
+
+    paragraphs.each(function() {
+        $(this).css('color', 'black')
+    })
+
+    if(intent == "trigger_function") {
+        $(paragraphs[1]).css('color', 'red');
+    } else if(intent == "trigger_channel") {
+        $(paragraphs[2]).css('color', 'red');
+    } if(intent == "action_function") {
+        $(paragraphs[3]).css('color', 'red');
+    } if(intent == "action_channel") {
+        $(paragraphs[4]).css('color', 'red');
+    }
 }

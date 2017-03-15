@@ -10,12 +10,27 @@ div#error-message {
     background: red
 }
 
-div {
+/*div {
     width: 800px
-}
+}*/
 
 tr {
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     border-collapse: collapse;
 }​
+
+body{
+  margin: 0; /* removing the default body margin */
+}
+
+div.left {
+  display: inline-block;
+  width: 65%;
+}
+
+div.right {
+  display: inline-block;
+  width: 30%;
+  background-color: Gainsboro;
+}

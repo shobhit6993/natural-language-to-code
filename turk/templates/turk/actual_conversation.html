@@ -29,20 +29,11 @@
 
 </div>
 <hr>
-<div>
-    <h3>TASK DESCRIPTION:</h3>
-    <p><i>"{{ description }}"</i></p>
-    <p>Which event should cause the applet to run/trigger?<br><i>{{ trigger_fn }}</i></p>
-    <p>On which service should the above event happen?<br><i>{{ trigger_channel }}</i></p>
-    <p>What action should be taken when the applet runs/triggers?<br><i>{{ action_fn }}</i></p>
-    <p>Which service should be used to perform the action?<br><i>{{ action_channel }}</i></p>
-</div>
-<hr>
-<div>
+<div class="left">
     <h3>CONVERSATION:</h3>
     <div>
         <p>
-            Note that the above names are only representative. <b>The bot will not
+            Note that the names in "Task Description" are only representative. <b>The bot will not
             directly understand words like</b> <i>"{{trigger_fn}}"</i>, or
             <i>"{{action_fn}}"</i>. You should describe these to the bot
             in your own language with proper English.
@@ -64,6 +55,15 @@
     <br/>
     <div id="message"></div>
     <button type="button" id="continue" value="Continue">Continue</button>
+</div>
+<!--<hr>-->
+<div class="right">
+    <h3>TASK DESCRIPTION:</h3>
+    <p><i>"{{ description }}"</i></p>
+    <p>Which event should cause the applet to run/trigger?<br><i>{{ trigger_fn }}</i></p>
+    <p>On which service should the above event happen?<br><i>{{ trigger_channel }}</i></p>
+    <p>What action should be taken when the applet runs/triggers?<br><i>{{ action_fn }}</i></p>
+    <p>Which service should be used to perform the action?<br><i>{{ action_channel }}</i></p>
 </div>
 
 <script type="text/javascript" src="{% static 'turk/js/utils.js' %}"></script>

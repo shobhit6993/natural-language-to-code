@@ -1,10 +1,10 @@
 import logging
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from ..core.configs import Configs as configs
-from ..core.dialog_agent import create_dialog_agent
+from ..core.dialog_agent import create_dialog_agent, get_intent
 from ..core.ifttt_utils import IftttUtils
 from ..core.recipes import Recipes
 from ..core.parsers import Parsers
@@ -111,16 +111,18 @@ def read_user_utterance(request):
         dialog_agent = request.session['dialog_agent']
         sys_utterance = dialog_agent.generate_system_response(
             user_utterance, Parsers.utterance_parser)
+        intention = get_intent(sys_utterance)
 
         # Log user and system utterances
         log_utterances(user_utterance, sys_utterance)
         request.session.modified = True
 
         # If this is the end of conversation, mark the recipe as used.
-        if "bye" in sys_utterance.lower():
+        if intention == "close":
             Recipes.mark_recipe_as_used(request.session['recipe_index'])
 
-        return HttpResponse(sys_utterance)
+        return JsonResponse({"system_utterance": sys_utterance,
+                             "intent": intention})
     except Exception:
         logging.error("`user_utterance` not in POST request %s", request)
         raise

@@ -78,6 +78,10 @@ function convert_form_to_text(clear_form) {
 }
 
 function ask_trigger_fn() {
+    // Highlight the relevant section in "Task Description."
+    change_all_to_black();
+    $($(".right").find("p")[1]).css('color', 'red');
+
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Which event on Facebook should I be looking for to run the applet?</td></tr>');
     $("#form-row").before(robot_row);
@@ -88,6 +92,10 @@ function ask_trigger_fn() {
 }
 
 function confirm_trigger_fn() {
+    // Highlight the relevant section in "Task Description."
+    change_all_to_black();
+    $($(".right").find("p")[1]).css('color', 'red');
+
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Do you want to trigger the applet every time you post a new photo on facebook?</td></tr>');
     $("#form-row").before(robot_row);
@@ -98,6 +106,10 @@ function confirm_trigger_fn() {
 }
 
 function ask_action_channel() {
+    // Highlight the relevant section in "Task Description."
+    change_all_to_black();
+    $($(".right").find("p")[4]).css('color', 'red');
+
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Which service should I use to perform the desired action every time the applet runs?</td></tr>');
     $("#form-row").before(robot_row);
@@ -108,6 +120,8 @@ function ask_action_channel() {
 }
 
 function inform() {
+    change_all_to_black();
+
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">The applet will trigger every time you post a new photo on facebook. It will use the Facebook service to look for this event. The action taken will be to download a file at a given url and add it to dropbox at the path you specify. This action will be performed using the Dropbox service. Is this what you wanted?</td></tr>');
     $("#form-row").before(robot_row);
@@ -118,6 +132,7 @@ function inform() {
 }
 
 function end_demonstration() {
+    change_all_to_black();
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Ok, bye!</td></tr>');
     $("#form-row").before(robot_row);
     $("#form-row").remove();
@@ -139,4 +154,10 @@ function getText(radioList) {
     } else {
         return radioList.parentNode.textContent.trim();
     }
+}
+
+function change_all_to_black() {
+    $(".right").find("p").each(function() {
+        $(this).css('color', 'black')
+    });
 }

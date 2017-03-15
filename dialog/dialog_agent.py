@@ -105,6 +105,11 @@ class DialogAgent:
             str: System-utterance.
         """
         assert (not (self.parser is None and utterance_parser is None))
+
+        # Remove trailing full-stops in user-utterance, if present.
+        while user_utterance[-1] == '.':
+            user_utterance = user_utterance[0:-1]
+
         parser = self.parser
         if self.parser is None:
             parser = utterance_parser
