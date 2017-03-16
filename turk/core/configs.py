@@ -4,7 +4,7 @@ class Configs(object):
     use_english_intelligible = False
     use_gold = True
 
-    log_level = "DEBUG"
+    log_level = "INFO"
 
     trigger_fns_csv = "./ifttt/data/label-maps/trigger-functions.csv"
     action_fns_csv = "./ifttt/data/label-maps/action-functions.csv"
