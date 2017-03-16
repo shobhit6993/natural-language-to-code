@@ -22,12 +22,15 @@ $('#start').on('click', function(e) {
             robot_utterance_1 = json_response['sys_utterance_1']
             robot_utterance_2 = json_response['sys_utterance_2']
             user_utterance = json_response['user_utterance']
+            intent = json_response['intent']
 
             // Row for robot's first utterance.
             $($("#form-row").prev().find('td')[1]).html(robot_utterance_1)
             // Row for automatically generated user utterance.
             user_row = $('<tr><td style="width:10%">YOU:</td><td style="width:90%">' + user_utterance + '</td></tr>');
             $("#form-row").before(user_row);
+
+            change_color_using_intent(intent)
             // Row for robot's second utterance.
             robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">' + robot_utterance_2 + '</td></tr>');
             $("#form-row").before(robot_row);

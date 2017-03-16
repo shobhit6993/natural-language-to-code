@@ -103,6 +103,7 @@ def open_dialog(request):
     user_utterance = request.session['description']
     sys_utterance_2 = dialog_agent.generate_system_response(
         user_utterance, Parsers.utterance_parser)
+    intention = get_intent(sys_utterance_2)
     request.session.modified = True
 
     # Log utterances
@@ -110,7 +111,9 @@ def open_dialog(request):
     log_utterances(user_utterance, sys_utterance_2)
     return JsonResponse({"sys_utterance_1": sys_utterance_1,
                          "sys_utterance_2": sys_utterance_2,
-                         "user_utterance": user_utterance})
+                         "user_utterance": user_utterance,
+                         "intent": intention})
+
 
 def read_user_utterance(request):
     def log_utterances(user_utterance, sys_utterance):
