@@ -116,8 +116,8 @@ class DialogAgent:
 
         if user_utterance.lower().strip() == "stop":
             self.tracker.set_dialog_termination()
-            close_action = DialogAction(ActionType.close)
-            sys_utterance = self._system_utterance_for_action(close_action)
+            self.action = DialogAction(ActionType.close)
+            sys_utterance = self._system_utterance_for_action(self.action)
             return sys_utterance
 
         intent = self.intention.get_intent(self.action, user_utterance)
@@ -345,7 +345,7 @@ class DialogAgent:
             channel = self.label_description.action_channel_description(
                 self.state.action[ID])
             message = ("What should I do on the {} service every time the "
-                       "applet runs".format(channel))
+                       "applet runs?".format(channel))
         else:
             logging.error("%s: Illegal slot type %s.",
                           self._ask_slot.__name__, slot)
