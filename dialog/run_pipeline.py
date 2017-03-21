@@ -97,11 +97,14 @@ def main():
     parse_arguments()
     t_channel_parser, a_channel_parser, t_fn_parser, a_fn_parser, \
         keyword_parser = load_parsers()
-    dialog_agent = create_dialog_agent(
-        trigger_channel_parser=t_channel_parser, trigger_fn_parser=t_fn_parser,
-        action_channel_parser=a_channel_parser, action_fn_parser=a_fn_parser,
-        keyword_parser=keyword_parser, istream=Input(), ostream=Output())
-    dialog_agent.start_session()
+    while True:
+        dialog_agent = create_dialog_agent(
+            trigger_channel_parser=t_channel_parser,
+            trigger_fn_parser=t_fn_parser,
+            action_channel_parser=a_channel_parser,
+            action_fn_parser=a_fn_parser,
+            keyword_parser=keyword_parser, istream=Input(), ostream=Output())
+        dialog_agent.start_session()
 
 
 if __name__ == '__main__':
