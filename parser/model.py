@@ -142,7 +142,8 @@ class Model(object):
         self._dataset.load_vocabulary(self._path + VOCAB_FILE)
         self._create_label_maps()
 
-    def load_test_dataset(self, use_full_test_set=True, use_english=False,
+    def load_test_dataset(self, external_csv_file="",
+                          use_full_test_set=True, use_english=False,
                           use_english_intelligible=False,
                           use_gold=False, use_names_descriptions=False):
         """Loads dataset for testing.
@@ -153,6 +154,12 @@ class Model(object):
         subset to load.
 
         Args:
+            external_csv_file (str, optional): Path of csv file if the test data
+                is to be loaded from this file, and not from the default IFTTT
+                test dataset. If this is provided, then all other arguments
+                except `use_names_descriptions` will be ignored. Defaults to
+                an empty string, which means the default IFTTT dataset will be
+                loaded.
             use_names_descriptions (bool, optional): Set to `True` if both
                 "name" and "description" field of recipes is to be used to
                 construct descriptions of recipes. Defaults to `False`.
@@ -168,10 +175,17 @@ class Model(object):
                 test set is to be used for testing. Defaults to `True`.
         """
         logging.debug("Loading dataset.")
-        test_inputs, test_labels, test_seq_lens = self._dataset.load_test(
-            use_full_test_set=use_full_test_set, use_english=use_english,
-            use_english_intelligible=use_english_intelligible,
-            use_gold=use_gold, use_names_descriptions=use_names_descriptions)
+        if external_csv_file != "":
+            test_inputs, test_labels, test_seq_lens = \
+                self._dataset.load_from_file(
+                    csv_file_path=external_csv_file,
+                    use_names_descriptions=use_names_descriptions)
+        else:
+            test_inputs, test_labels, test_seq_lens = self._dataset.load_test(
+                use_full_test_set=use_full_test_set, use_english=use_english,
+                use_english_intelligible=use_english_intelligible,
+                use_gold=use_gold,
+                use_names_descriptions=use_names_descriptions)
         logging.info("Test set loaded. Size = %s", len(test_inputs))
         self.x_test = np.array(test_inputs)
         self.y_test = self._convert_to_one_hot(test_labels)

@@ -98,6 +98,7 @@ def test_models(args, model_class):
             model = model_class(config, expt_path, stem=True)
             model.load_labels_and_vocab()
             model.load_test_dataset(
+                external_csv_file=args.external_test_csv,
                 use_full_test_set=args.use_full_test_set,
                 use_english=args.use_english,
                 use_english_intelligible=args.use_english_intelligible,

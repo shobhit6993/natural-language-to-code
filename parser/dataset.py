@@ -132,10 +132,7 @@ class Dataset(object):
         descriptions, labels = self._load_dataset(VALIDATE_CSV,
                                                   use_names_descriptions)
 
-        inputs = self._tokenize_and_stem(descriptions)
-        self.parse_descriptions_with_vocabulary(inputs)
-        true_desc_lengths = self.description_lengths_before_padding(inputs)
-        self.pad_or_clip(inputs)
+        inputs, true_desc_lengths = self.preprocess_inputs(descriptions)
         return inputs, labels, true_desc_lengths
 
     def load_test(self, use_full_test_set=True, use_english=False,
@@ -199,10 +196,41 @@ class Dataset(object):
 
         descriptions, labels = self._descriptions_labels(recipes_subset,
                                                          use_names_descriptions)
-        inputs = self._tokenize_and_stem(descriptions)
-        self.parse_descriptions_with_vocabulary(inputs)
-        true_desc_lengths = self.description_lengths_before_padding(inputs)
-        self.pad_or_clip(inputs)
+
+        inputs, true_desc_lengths = self.preprocess_inputs(descriptions)
+        return inputs, labels, true_desc_lengths
+
+    def load_from_file(self, csv_file_path, use_names_descriptions=False):
+        """Loads dataset from a csv file and pre-processes it.
+
+        This dataset is assumed to be used for validation or testing purposes.
+        It cannot be used for training.
+
+        Args:
+            use_names_descriptions (bool, optional): Set to `True` if both
+                "name" and "description" field of recipes is to be used to
+                construct descriptions of recipes. Defaults to `False`.
+            csv_file_path (str): Path of csv file from where to load the
+                dataset.
+
+        Returns:
+            `list` of `str`, `list` of `Label`, `list` of `int`: The first
+        entity is the list of descriptions. The second entity is the list
+        of corresponding labels. The third entity is the list of lengths
+        of descriptions before they were padded (with the maximum length
+        being `self.config.sent_len`). The lengths of descriptions which
+        were clipped is reported as `self.config.sent_len`.
+        """
+        recipes = []
+        with open(csv_file_path, 'rb') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                recipes.append(row)
+
+        descriptions, labels = self._descriptions_labels(recipes,
+                                                         use_names_descriptions)
+
+        inputs, true_desc_lengths = self.preprocess_inputs(descriptions)
         return inputs, labels, true_desc_lengths
 
     def load_vocabulary(self, vocab_path):
