@@ -15,12 +15,12 @@ def dialog_arguments_parser():
                              "'INFO', 'WARNING', 'ERROR', 'CRITICAL']",
                         dest='log_level')
     parser.add_argument('--alpha', nargs='?', type=float,
-                        default=0.7, const=0.7,
+                        default=0.85, const=0.85,
                         help="Threshold of confidence above which the slot is "
                              "deemed as confidently-filled without a need for "
                              "confirmation.", dest='alpha')
     parser.add_argument('--beta', nargs='?', type=float,
-                        default=0.4, const=0.4,
+                        default=0.25, const=0.25,
                         help="Threshold of confidence above which -- and below"
                              " alpha -- above which the slot is explicitly "
                              "confirmed before being accepted", dest='beta')
