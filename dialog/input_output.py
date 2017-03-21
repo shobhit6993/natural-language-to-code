@@ -3,7 +3,7 @@ class Input:
         pass
 
     def get(self):
-        return raw_input()
+        return raw_input("USER:")
 
 
 class Output:
@@ -11,4 +11,4 @@ class Output:
         pass
 
     def put(self, out):
-        print("SYSTEM: {}".format(out))
+        print("ROBOT:{}".format(out))
