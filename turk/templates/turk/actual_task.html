@@ -16,7 +16,7 @@
         to automate this task.
     </p>
     <p>
-        The one-line task description might be vague. To help you understand the task, we have
+        The short and long task descriptions <b>might be vague</b>. To help you understand the task, we have
         provided some hints about when the applet should run and what should it do when it runs.
     </p>
 
@@ -24,7 +24,8 @@
 <hr>
 <div>
     <h3>TASK DESCRIPTION:</h3>
-    <p><i>"{{ description }}"</i></p>
+    <p><u>Short Description:</u> <i>"{{ short_description }}"</i></p>
+    <p><u>Long Description:</u> <i>"{{ long_description }}"</i></p>
     <div>
         <p>When should the applet run?<br>When <b><i>{{ trigger_fn }}</i></b> on the service named <b><i>{{ trigger_channel }}</i></b>.</p>
         <p>What should the applet do when it runs?<br>It should <b><i>{{ action_fn }}</i></b> on the service named <b><i>{{ action_channel }}</i></b>.</p>

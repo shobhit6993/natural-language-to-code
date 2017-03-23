@@ -11,7 +11,7 @@ function timer() {
         $("#continue").show()
         return;
     }
-    document.getElementById("timer").innerHTML = "Spend some time in understanding the task; the \"Continue\" button will appear in " + count + " seconds.";
+    document.getElementById("timer").innerHTML = "Spend some time understanding the task; the \"Continue\" button will appear in " + count + " seconds.";
 }
 
 $("#continue").on("click", function(e) {

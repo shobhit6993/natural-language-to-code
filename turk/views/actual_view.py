@@ -15,7 +15,8 @@ def actual_task(request):
         with open(file_path, 'a') as f:
             f.write("session_id:" + str(request.session.session_key) + "\n")
             f.write("recipe_url:" + recipe['url'] + "\n")
-            f.write("description:" + recipe['name'] + "\n")
+            f.write("short_description:" + recipe['name'] + "\n")
+            f.write("long_description:" + recipe['description'] + "\n")
             f.write("trigger_channel:" + recipe['trigger_channel'] + "\n")
             f.write("trigger_function:" + recipe['trigger_function'] + "\n")
             f.write("action_channel:" + recipe['action_channel'] + "\n")
@@ -34,7 +35,8 @@ def actual_task(request):
     request.session['action_fn'] = recipe['action_function']
     request.session['recipe_url'] = recipe['url']
     request.session['recipe_index'] = recipe['index']
-    request.session['description'] = recipe['name']
+    request.session['short_description'] = recipe['name']
+    request.session['long_description'] = recipe['description']
 
     # Log recipe details
     log_task(recipe)
@@ -43,7 +45,8 @@ def actual_task(request):
                'trigger_fn': recipe['trigger_function'],
                'action_fn': recipe['action_function'],
                'action_channel': recipe['action_channel'],
-               'description': recipe['name']}
+               'short_description': recipe['name'],
+               'long_description': recipe['description']}
     return render(request, 'turk/actual_task.html', context)
 
 
@@ -52,14 +55,16 @@ def actual_conversation(request):
     dialog_agent = create_dialog_agent()
     request.session['dialog_agent'] = dialog_agent
 
-    description = request.session['description']
+    short_description = request.session['short_description']
+    long_description = request.session['long_description']
     trigger_channel = request.session['trigger_channel']
     action_channel = request.session['action_channel']
     trigger_fn = request.session['trigger_fn']
     action_fn = request.session['action_fn']
     context = {'trigger_channel': trigger_channel, 'trigger_fn': trigger_fn,
                'action_channel': action_channel, 'action_fn': action_fn,
-               'description': description}
+               'short_description': short_description,
+               'long_description': long_description}
     return render(request, 'turk/actual_conversation.html', context)
 
 

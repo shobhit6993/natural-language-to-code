@@ -126,12 +126,12 @@ function change_color_using_intent(intent) {
     })
 
     if(intent == "trigger_function") {
-        $(paragraphs[1]).css('color', 'red');
-    } else if(intent == "trigger_channel") {
         $(paragraphs[2]).css('color', 'red');
-    } if(intent == "action_function") {
+    } else if(intent == "trigger_channel") {
         $(paragraphs[3]).css('color', 'red');
-    } if(intent == "action_channel") {
+    } if(intent == "action_function") {
         $(paragraphs[4]).css('color', 'red');
+    } if(intent == "action_channel") {
+        $(paragraphs[5]).css('color', 'red');
     }
 }

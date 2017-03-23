@@ -80,7 +80,7 @@ function convert_form_to_text(clear_form) {
 function ask_trigger_fn() {
     // Highlight the relevant section in "Task Description."
     change_all_to_black();
-    $($(".right").find("p")[1]).css('color', 'red');
+    $($(".right").find("p")[2]).css('color', 'red');
 
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Which event on Facebook should I be looking for to run the applet?</td></tr>');
@@ -94,7 +94,7 @@ function ask_trigger_fn() {
 function confirm_trigger_fn() {
     // Highlight the relevant section in "Task Description."
     change_all_to_black();
-    $($(".right").find("p")[1]).css('color', 'red');
+    $($(".right").find("p")[2]).css('color', 'red');
 
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Do you want to trigger the applet every time you post a new photo on facebook?</td></tr>');
@@ -108,7 +108,7 @@ function confirm_trigger_fn() {
 function ask_action_channel() {
     // Highlight the relevant section in "Task Description."
     change_all_to_black();
-    $($(".right").find("p")[4]).css('color', 'red');
+    $($(".right").find("p")[5]).css('color', 'red');
 
     // Add a row for system-utterance.
     robot_row = $('<tr><td style="width:10%">ROBOT:</td><td style="width:90%">Which service should I use to perform the desired action every time the applet runs?</td></tr>');

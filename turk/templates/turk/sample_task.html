@@ -31,7 +31,8 @@
 <hr>
 <div>
     <h3>TASK DESCRIPTION:</h3>
-    <p><i>"{{ description }}"</i></p>
+    <p><u>Short Description:</u> <i>"{{ short_description }}"</i></p>
+    <p><u>Long Description:</u> <i>"{{ long_description }}"</i></p>
     <h3>Questions:</h3>
     <form id="applet-form" method="post" action="{% url 'turk:check_answers' %}">
         {% csrf_token %}
