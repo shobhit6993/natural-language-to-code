@@ -336,8 +336,8 @@ class DialogAgent:
         elif slot is Slot.trigger_fn:
             channel = self.label_description.trigger_channel_description(
                 self.state.trigger[ID])
-            message = ("Which event on the {} service should I be looking for "
-                       "to run the applet?".format(channel))
+            message = ("Which event on the {} service should cause the applet "
+                       "to run?".format(channel))
         elif slot is Slot.action_channel:
             message = ("Which service should I use to perform the desired "
                        "action every time the applet runs?")

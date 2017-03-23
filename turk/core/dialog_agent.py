@@ -37,7 +37,7 @@ def get_intent(sys_utterance):
     elif ("you want the applet to run" in sys_utterance or
           "Do you want an event on the" in sys_utterance):
         return "trigger_channel"
-    elif ("service should I be looking for" in sys_utterance or
+    elif ("service should cause the applet" in sys_utterance or
           "Do you want to trigger the applet" in sys_utterance):
         return "trigger_function"
     elif ("should I use to perform the desired" in sys_utterance or
