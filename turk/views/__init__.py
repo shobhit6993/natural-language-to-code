@@ -1,4 +1,4 @@
-from actual_view import actual_conversation, actual_task, fail
+from actual_view import actual_conversation, actual_task
 from actual_view import first_utterance, read_user_utterance
 from code_view import code
 from error_404 import error_404

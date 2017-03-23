@@ -5,7 +5,6 @@ from django.http import HttpResponse, JsonResponse
 
 from ..core.configs import Configs as configs
 from ..core.dialog_agent import create_dialog_agent, get_intent
-from ..core.ifttt_utils import IftttUtils
 from ..core.recipes import Recipes
 from ..core.parsers import Parsers
 
@@ -40,14 +39,11 @@ def actual_task(request):
     # Log recipe details
     log_task(recipe)
 
-    # Retrieve values to be shown as options to Turker for the question on
-    # the recipe.
-    description = recipe['name']
-    channels = [recipe['trigger_channel'], recipe['action_channel']]
-    trigger_fns = IftttUtils.all_trigger_functions(recipe['trigger_channel'])
-    action_fns = IftttUtils.all_action_functions(recipe['action_channel'])
-    context = {'channels': channels, 'trigger_fns': trigger_fns,
-               'action_fns': action_fns, 'description': description}
+    context = {'trigger_channel': recipe['trigger_channel'],
+               'trigger_fn': recipe['trigger_function'],
+               'action_fn': recipe['action_function'],
+               'action_channel': recipe['action_channel'],
+               'description': recipe['name']}
     return render(request, 'turk/actual_task.html', context)
 
 
@@ -65,20 +61,6 @@ def actual_conversation(request):
                'action_channel': action_channel, 'action_fn': action_fn,
                'description': description}
     return render(request, 'turk/actual_conversation.html', context)
-
-
-def fail(request):
-    # The Turker failed because they could not understand the task.
-    # Log the failure.
-    user_id = request.session['user_id']
-    file_path = configs.log_directory + str(user_id) + ".log"
-    with open(file_path, 'a') as f:
-        f.write("---fail---\n")
-    logging.info("%s: Logged task failure.", user_id)
-
-    # Mark the recipe as unused.
-    Recipes.mark_recipe_as_unused(request.session['recipe_index'])
-    return HttpResponse("")
 
 
 def first_utterance(request):

@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^first_utterance/*$', views.first_utterance, name="first_utterance"),
     url(r'^read_user_utterance/*$', views.read_user_utterance,
         name="read_user_utterance"),
-    url(r'^fail/*$', views.fail, name="fail"),
     url(r'^survey/*$', views.survey, name="survey"),
     url(r'^save_survey/*$', views.save_survey, name="save_survey"),
     url(r'^code/*', views.code, name="code"),
