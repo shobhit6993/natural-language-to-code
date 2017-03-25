@@ -90,8 +90,8 @@ class EnsembledModel(object):
         Args:
             inputs (`numpy.ndarray`): List of input descriptions in tokenized
                 form, i.e., as a 2D numpy array of tokens
-            labels (`numpy.ndarra`): True labels in the form of a 2D numpy array
-                Each row is a one-hot vector for the label.
+            labels (`numpy.ndarray`): True labels in the form of a 2D numpy
+                array. Each row is a one-hot vector for the label.
             seq_lens (`list` of `int`, optional): The list of lengths of
                 descriptions as returned by
                 `dataset.Dataset.description_lengths_before_padding`.
@@ -107,6 +107,27 @@ class EnsembledModel(object):
         l = np.argmax(labels, axis=1)
         mistakes = np.not_equal(p, l)
         return mistakes
+
+    def prediction_confidences(self, inputs, labels, seq_lens):
+        """Computes averaged predictions of the models and returns confidences
+        of top prediction for each input in `inputs`
+
+        Args:
+            inputs (`numpy.ndarray`): List of input descriptions in tokenized
+                form, i.e., as a 2D numpy array of tokens
+            labels (`numpy.ndarray`): True labels in the form of a 2D numpy
+                array. Each row is a one-hot vector for the label.
+            seq_lens (`list` of `int`, optional): The list of lengths of
+                descriptions as returned by
+                `dataset.Dataset.description_lengths_before_padding`.
+
+        Returns:
+            numpy.ndarray: An array containing confidence of top prediction for
+            each input in `inputs`.
+        """
+        averaged_predictions = self._averaged_predictions(inputs, seq_lens,
+                                                          preprocess=False)
+        return np.max(averaged_predictions, axis=1)
 
     def _averaged_predictions(self, inputs, seq_lens=None, preprocess=True):
         """Computes average of softmax-prediction output of all the models.
