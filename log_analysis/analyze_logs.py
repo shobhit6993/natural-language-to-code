@@ -9,7 +9,7 @@ import logging
 from tracker.constants import DialogStatus
 from log_analysis.experiment_statistics import ExperimentStatistics
 from log_analysis.log_summary import LogSummary
-from log_analysis.argument_parser import arguments_parser
+from log_analysis.argument_parser import arguments_parser_log_analysis
 
 
 def parse_arguments():
@@ -18,7 +18,7 @@ def parse_arguments():
     Returns:
         Namespace: Namespace containing parsed arguments.
     """
-    args = arguments_parser().parse_args()
+    args = arguments_parser_log_analysis().parse_args()
     logging.basicConfig(level=getattr(logging, args.log_level.upper()),
                         format='%(levelname)s: %(asctime)s: %(message)s')
 
