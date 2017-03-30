@@ -328,6 +328,8 @@ class DialogTrainingSet(object):
         Returns:
             `Confirmation`: Type of user-response to a confirmation request.
         """
+        while user_utterance[-1] == '.':
+            user_utterance = user_utterance[:-1]
         if user_utterance in YES_UTTERANCES:
             return Confirmation.yes
         elif user_utterance in NO_UTTERANCES:
