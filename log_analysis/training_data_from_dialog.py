@@ -500,7 +500,11 @@ def main():
             # Ignore conversations which were forcefully terminated.
             stats = log_summary.dialog_stats[i]
             if stats.dialog_status_user_view is DialogStatus.terminated:
-                logging.info("Ignoring %s because of forced termination",
+                logging.info("Ignoring %s because of forced termination.",
+                             log_summary.goals[i].recipe_url)
+                continue
+            if stats.dialog_status_user_view is DialogStatus.failure:
+                logging.info("Ignoring %s because of dialog failure.",
                              log_summary.goals[i].recipe_url)
                 continue
 
