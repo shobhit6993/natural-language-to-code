@@ -84,29 +84,23 @@ class LogSummary(object):
     def _extract_recipe_data(self, lines, i):
         goal = Goal()
 
-        url_line = lines[i].strip()
-        pos = url_line.find(':')
-        goal.update_recipe_url(url_line[pos + 1:])
-
-        description_line = lines[i + 1].strip()
-        pos = description_line.find(':')
-        goal.update_description(description_line[pos + 1:])
-
-        trigger_channel_line = lines[i + 2].strip()
-        pos = trigger_channel_line.find(':')
-        goal.update_trigger_channel(trigger_channel_line[pos + 1:])
-
-        trigger_function_line = lines[i + 3].strip()
-        pos = trigger_function_line.find(':')
-        goal.update_trigger_fn(trigger_function_line[pos + 1:])
-
-        action_channel_line = lines[i + 4].strip()
-        pos = action_channel_line.find(':')
-        goal.update_action_channel(action_channel_line[pos + 1:])
-
-        action_function_line = lines[i + 5].strip()
-        pos = action_function_line.find(':')
-        goal.update_action_fn(action_function_line[pos + 1:])
+        for j in xrange(i, len(lines)):
+            line = lines[j].strip()
+            pos = line.find(':')
+            if 'recipe_url' in line:
+                goal.update_recipe_url(line[pos + 1:])
+            elif 'short_description' in line or line.find('description') == 0:
+                goal.update_description(line[pos + 1:])
+            elif 'long_description' in line:
+                pass
+            elif 'trigger_channel' in line:
+                goal.update_trigger_channel(line[pos + 1:])
+            elif 'trigger_function' in line:
+                goal.update_trigger_fn(line[pos + 1:])
+            elif 'action_channel' in line:
+                goal.update_action_channel(line[pos + 1:])
+            elif 'action_function' in line:
+                goal.update_action_fn(line[pos + 1:])
 
         self.goals.append(goal)
 
