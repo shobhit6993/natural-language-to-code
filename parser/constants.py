@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 UNK = "UKN"  # The special "Unknown" token used to represent OOV-tokens.
 NULL = "NULL"  # The special token used to pad inputs.
 
@@ -41,3 +44,9 @@ class TurkLabels:
     # : list of str: Labels corresponding to recipe descriptions which are
     # either not in English or are unintelligible.
     unintelligible = ["nonenglish", "unintelligible", "missing"]
+
+
+class TrainVariables(Enum):
+    all = "all"
+    non_attention = "non_attention"
+    attention = "attention"

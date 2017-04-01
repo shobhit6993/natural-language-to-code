@@ -23,6 +23,15 @@ def training_arguments_parser():
     parser.add_argument('--load-and-train', action='store_true',
                         help="Load a saved model and continue training.",
                         dest='load_and_train')
+    parser.add_argument('--retrain', nargs='?', type=str,
+                        default="all", const="all",
+                        help="Which model parameters to be learned during "
+                             "re-training. Can take values among ['all',"
+                             "'non-attention', 'attention']. Defaults to 'all'."
+                             " Relevant only with --load-and-train option. In "
+                             "simple training case, all parameters are "
+                             "learned.",
+                        dest='retrain')
     parser.add_argument('--saved-model-path', nargs='?', type=str,
                         default="", const="",
                         help="Path of the saved model to be loaded.",
@@ -39,6 +48,13 @@ def training_arguments_parser():
     parser.add_argument('--use-synthetic-recipes', action='store_true',
                         help="Use data from synthetic recipes for training.",
                         dest='use_synthetic_recipes')
+    parser.add_argument('--external-train-csv', nargs='?', type=str,
+                        default="", const="",
+                        help="Path of a CSV file from which train set is to be "
+                             "loaded. Use this only if you want to load the "
+                             "train set from an external CSV file, potentially"
+                             "in addition to the default IFTTT train set.",
+                        dest='external_train_csv')
     parser.add_argument('--use-names-descriptions', action='store_true',
                         help="Use both names and descriptions of recipes.",
                         dest='use_names_descriptions')

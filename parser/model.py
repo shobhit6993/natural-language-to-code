@@ -9,6 +9,7 @@ import numpy as np
 import tensorflow as tf
 
 from parser.constants import EVALUATION_FREQ, STOP_FILE, VOCAB_FILE
+from parser.constants import TrainVariables
 from parser.dataset import Dataset
 from parser.rnn import LatentAttentionNetwork
 from parser.utils import softmax
@@ -88,7 +89,8 @@ class Model(object):
 
     def load_train_dataset(
             self, use_train_set, use_triggers_api, use_actions_api,
-            use_synthetic_recipes, use_names_descriptions, load_vocab=False):
+            use_synthetic_recipes, use_names_descriptions, external_csv_file="",
+            load_vocab=False):
         """Loads dataset for training.
 
         Args:
@@ -103,6 +105,13 @@ class Model(object):
             use_names_descriptions (bool): Set to `True` if both
                 "name" and "description" field of recipes is to be used to
                 construct descriptions of recipes.
+            external_csv_file (str, optional): Path of csv file if the training 
+                data is to be loaded from this file, and not (just) from the 
+                default IFTTT train dataset. This argument can be used in 
+                conjunction with others, in which case training dataset will be 
+                loaded from the external csv file in addition to the dataset
+                governed by other arguments. Defaults to
+                an empty string, which means no external CSV file will be used.
             load_vocab (bool, optional): Set to `True` if vocabulary should be
                 loaded from a pickle dump instead of being constructed from the
                 dataset. This is usually done when resuming training on a stored
@@ -116,7 +125,7 @@ class Model(object):
             use_actions_api=use_actions_api,
             use_synthetic_recipes=use_synthetic_recipes,
             use_names_descriptions=use_names_descriptions,
-            load_vocab=load_vocab)
+            external_csv_file=external_csv_file, load_vocab=load_vocab)
         logging.info("Train set loaded. Size = %s", len(train_inputs))
         validate_inputs, val_labels, val_seq_lens = self._dataset.load_validate(
             use_names_descriptions)
@@ -191,7 +200,8 @@ class Model(object):
         self.y_test = self._convert_to_one_hot(test_labels)
         self.seq_lens_test = np.array(test_seq_lens)
 
-    def initialize_network(self, init_variables=True, graph=None):
+    def initialize_network(self, init_variables=True, graph=None,
+                           train_vars=TrainVariables.all):
         """Constructs and initializes the Recurrent Neural Network.
 
         Additionally, creates the `Tensorflow` session and saver variables.
@@ -205,10 +215,18 @@ class Model(object):
                 create the network and to be associated with the `Session`
                 to be launched. Defaults to `None`, in which case the default
                 `Graph` will be used.
+            train_vars (TrainVariables): The mode that determines which set of
+                model parameters should be modified during training.
+                The mode `TrainVariables.all` causes all model parameters to be
+                learned during training.
+                The mode `TrainVariables.non_attention` results in only the 
+                model parameters that are not part of the attention mechanism 
+                to be learned. This includes only the variable named "p".
         """
         logging.debug("Creating network.")
         self.network = LatentAttentionNetwork(config=self.config,
-                                              num_classes=len(self.labels_map))
+                                              num_classes=len(self.labels_map),
+                                              train_vars=train_vars)
         logging.info("Network created.")
         self._session = tf.Session(graph=graph)
         if init_variables:
@@ -372,6 +390,9 @@ class Model(object):
         size. Since training set is shuffled before creating mini-batches, the
         training examples in the ignored mini-batches are used in  some other
         mini-batch in, at least, one epoch with high probability.
+        
+        If `batch_size` is smaller than the size of input, then `batch_size` is
+        set to the size of input.
 
         Args:
             batch_size (int): Size of each mini-batch.
@@ -382,6 +403,8 @@ class Model(object):
             list: List of indices corresponding to a mini-batch.
         """
         num_input = self.x_train.shape[0]
+        if batch_size > num_input:
+            batch_size = num_input
         indices = np.arange(num_input)
         if shuffle:
             np.random.shuffle(indices)

@@ -42,14 +42,16 @@ class Dataset(object):
         return ("Stem: {}\nPath: {}\nVocabulary: {}"
                 .format(str(self.stem), str(self.path), str(self.vocabulary)))
 
-    def load_train(self, vocab_path, use_train_set=True, use_triggers_api=False,
-                   use_actions_api=False, use_synthetic_recipes=False,
-                   use_names_descriptions=False, load_vocab=False):
+    def load_train(self, vocab_path, external_csv_file="", use_train_set=True,
+                   use_triggers_api=False, use_actions_api=False,
+                   use_synthetic_recipes=False, use_names_descriptions=False,
+                   load_vocab=False):
         """Loads and pre-processes training data.
 
         Training data can, potentially, be generated from the actual train set,
-        synthetically from API documentation of triggers and actions, and
-        synthetic recipes created from their combination.
+        from an external csv file, synthetically from API documentation of 
+        triggers and actions, and synthetic recipes created from their 
+        combination.
 
         Args:
             load_vocab (bool, optional): Load vocabulary from a pickle dump if
@@ -71,6 +73,13 @@ class Dataset(object):
                 to `False`.
             vocab_path (str): Path where `self.vocabulary` is dumped or loaded
                 from.
+            external_csv_file (str, optional): Path of csv file if the training 
+                data is to be loaded from this file, and not (just) from the 
+                default IFTTT train dataset. This argument can be used in 
+                conjunction with others, in which case training dataset will be 
+                loaded from the external csv file in addition to the dataset
+                governed by other arguments. Defaults to
+                an empty string, which means no external CSV file will be used.
 
         Returns:
             `list` of `str`, `list` of `Label`, `list` of `int`: The first
@@ -99,6 +108,11 @@ class Dataset(object):
 
         if use_synthetic_recipes:
             d, l = SyntheticDataset.dataset_from_synthetic_recipes()
+            descriptions.extend(d)
+            labels.extend(l)
+
+        if external_csv_file != "":
+            d, l = self._load_dataset(external_csv_file, use_names_descriptions)
             descriptions.extend(d)
             labels.extend(l)
 
@@ -326,7 +340,7 @@ class Dataset(object):
                     description.pop()
 
     def _load_dataset(self, filename, use_names_descriptions):
-        """Loads description-label pairs from the IFTTT dataset contained in
+        """Loads description-label pairs from the dataset contained in
         the `filename` csv file.
 
         Args:

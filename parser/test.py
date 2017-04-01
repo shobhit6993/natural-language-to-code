@@ -35,6 +35,7 @@ def parse_args():
     logging.info("Use English and Intelligible Subset: %s",
                  args.use_english_intelligible)
     logging.info("Use Gold Subset: %s", args.use_gold)
+    logging.info("External CSV File: %s", args.external_test_csv)
     logging.info("Use Names and Descriptions: %s", args.use_names_descriptions)
 
     return args

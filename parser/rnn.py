@@ -1,4 +1,10 @@
+from __future__ import absolute_import
+
+import logging
+
 import tensorflow as tf
+
+from parser.constants import TrainVariables
 
 
 class LatentAttentionNetwork(object):
@@ -40,13 +46,23 @@ class LatentAttentionNetwork(object):
         error (Tensor): Value of classification error.
     """
 
-    def __init__(self, config, num_classes):
+    def __init__(self, config, num_classes, train_vars):
         """Sets hyper-parameter values based on the passed `config`
 
         Args:
             config: A configuration class, similar to
                 `configs.PaperConfigurations`.
             num_classes (int): Total number of label classes.
+            train_vars (TrainVariables): The mode that determines which set of
+                model parameters should be modified during training.
+                The mode `TrainVariables.all` causes all model parameters to be
+                learned during training.
+                The mode `TrainVariables.non_attention` results in only the 
+                model parameters that are not part of the attention mechanism 
+                to be learned. This includes only the variable named "p".
+                The mode `TrainVariables.attention` results in all the attention
+                related parameters being learned. This includes all variables 
+                except "p".
         """
         self.dropout = tf.placeholder(tf.float32, name='dropout')
         self._learning_rate = config.learning_rate
@@ -86,7 +102,7 @@ class LatentAttentionNetwork(object):
         self.output_representation = self.output_representation_layer()
         self.prediction = self.prediction_layer()
         self.loss = self.loss_layer()
-        self.optimize = self.optimize_layer()
+        self.optimize = self.optimize_layer(train_vars)
         self.error = self.error_layer()
 
     def dictionary_embedding_layer(self):
@@ -233,24 +249,54 @@ class LatentAttentionNetwork(object):
                                                     self.labels),
             name="loss")
 
-    def optimize_layer(self):
+    def optimize_layer(self, train_vars):
         """Sets up the optimizer to be used for minimizing the loss function.
 
         Adam Optimizer is used.
+        
+        Args:
+            train_vars (TrainVariables): The mode that determines which set of
+                model parameters should be modified during training.
+                The mode `TrainVariables.all` causes all model parameters to be
+                learned during training.
+                The mode `TrainVariables.non_attention` results in only the 
+                model parameters that are not part of the attention mechanism 
+                to be learned. This includes only the variable named "p".
+                The mode `TrainVariables.attention` results in all the attention
+                related parameters being learned. This includes all variables 
+                except "p".
 
         Returns:
             tensorflow.Operation: Operation to be executed to perform
             optimization.
         """
+        var_list = []
+        if train_vars is TrainVariables.all:
+            var_list = tf.trainable_variables()
+        elif train_vars is TrainVariables.non_attention:
+            var_list = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+                                        scope='p')
+        elif train_vars is TrainVariables.attention:
+            all_vars = tf.trainable_variables()
+            for var in all_vars:
+                if "p:" not in var.name:
+                    var_list.append(var)
+        else:
+            logging.error("Illegal type of `train_vars`: %s", train_vars)
+            raise TypeError
+
+        logging.info("Optimizing these variables: %s",
+                     [var.name for var in var_list])
         optimizer = tf.train.AdamOptimizer(self._learning_rate)
-        grads_and_vars = optimizer.compute_gradients(self.loss)
+        grads_and_vars = optimizer.compute_gradients(self.loss,
+                                                     var_list=var_list)
         capped_grads_and_vars = [
             (tf.clip_by_norm(grad, self._max_gradient_norm), var)
             for grad, var in grads_and_vars]
         return optimizer.apply_gradients(capped_grads_and_vars)
 
     def error_layer(self):
-        """Calculates the classfication error."""
+        """Calculates the classification error."""
         mistakes = tf.not_equal(tf.argmax(self.labels, 1),
                                 tf.argmax(self.prediction, 1))
         return tf.reduce_mean(tf.cast(mistakes, tf.float32), name="error")

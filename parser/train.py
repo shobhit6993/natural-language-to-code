@@ -8,7 +8,7 @@ from parser.action_channel_model import ActionChannelModel
 from parser.action_function_model import ActionFunctionModel
 from parser.argument_parser import training_arguments_parser
 from parser import configs
-from parser.constants import RNN_EXPT_DIRECTORY
+from parser.constants import RNN_EXPT_DIRECTORY, TrainVariables
 from parser.trigger_function_model import TriggerFunctionModel
 from parser.trigger_channel_model import TriggerChannelModel
 from parser import utils
@@ -31,12 +31,10 @@ def parse_args():
     logging.info("Use Triggers API: %s", args.use_triggers_api)
     logging.info("Use Actions API: %s", args.use_actions_api)
     logging.info("Use Synthetic Recipes: %s", args.use_synthetic_recipes)
+    logging.info("External CSV File: %s", args.external_train_csv)
     logging.info("Use Names and Descriptions: %s", args.use_names_descriptions)
     logging.info("Load and Train: %s", args.load_and_train)
-    try:
-        logging.info("Saved Model Path: %s", args.saved_model_path[0])
-    except IndexError:
-        pass
+    logging.info("Retrain: %s", args.retrain)
 
     return args
 
@@ -91,17 +89,24 @@ def load_and_train(args, model_class, expt_path):
         model_class (:obj:`Model`): One of the child classes of the `Model`
             class.
     """
+    try:
+        train_vars = TrainVariables[args.retrain]
+    except KeyError:
+        logging.error("Illegal mode for re-training: %s", args.retrain)
+        raise
+
     config = configs.PaperConfiguration
     log_configurations(config)
     model = model_class(config, expt_path, stem=True)
-    model.load_train_dataset(use_train_set=args.use_train_set,
-                             use_triggers_api=args.use_triggers_api,
-                             use_actions_api=args.use_actions_api,
-                             use_synthetic_recipes=args.use_synthetic_recipes,
-                             use_names_descriptions=args.use_names_descriptions,
-                             load_vocab=True)
-    model.initialize_network(init_variables=False)
-    model.restore(args.saved_model_path[0])
+    model.load_train_dataset(
+        use_train_set=args.use_train_set,
+        use_triggers_api=args.use_triggers_api,
+        use_actions_api=args.use_actions_api,
+        use_synthetic_recipes=args.use_synthetic_recipes,
+        use_names_descriptions=args.use_names_descriptions,
+        external_csv_file=args.external_train_csv, load_vocab=True)
+    model.initialize_network(init_variables=False, train_vars=train_vars)
+    model.restore(args.saved_model_path)
     model.train()
 
 
