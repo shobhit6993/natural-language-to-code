@@ -1,6 +1,5 @@
 """Generates new training data from dialog in Turk experiment logs."""
 
-
 from __future__ import absolute_import
 
 import csv
@@ -129,7 +128,7 @@ class DialogTrainingSet(object):
                     return
 
                 if (self._prev_action is ActionType.ask_slot and
-                        self._prev_slot is Slot.trigger_fn):
+                            self._prev_slot is Slot.trigger_fn):
                     utterance = self._prev_user_utterance
                 else:
                     utterance = self._free_form_utterance
@@ -162,7 +161,7 @@ class DialogTrainingSet(object):
                     return
 
                 if (self._prev_action is ActionType.ask_slot and
-                        self._prev_slot is Slot.action_fn):
+                            self._prev_slot is Slot.action_fn):
                     utterance = self._prev_user_utterance
                 else:
                     utterance = self._free_form_utterance
@@ -188,7 +187,7 @@ class DialogTrainingSet(object):
                     raise ValueError
             elif slot is Slot.trigger_channel:
                 if (self._prev_action is ActionType.ask_slot and
-                        self._prev_slot is Slot.trigger_channel):
+                            self._prev_slot is Slot.trigger_channel):
                     # User utterance containing Channels is parsed using
                     # KeywordModel which is not meant to be retrained.
                     return
@@ -219,7 +218,7 @@ class DialogTrainingSet(object):
                     raise ValueError
             elif slot is Slot.action_channel:
                 if (self._prev_action is ActionType.ask_slot and
-                        self._prev_slot is Slot.action_channel):
+                            self._prev_slot is Slot.action_channel):
                     # User utterance containing Channels is parsed using
                     # KeywordModel which is not meant to be retrained.
                     return
@@ -364,6 +363,11 @@ class DialogTrainingSet(object):
     def _add_trigger_fn_datapoint(description, trigger_channel,
                                   trigger_fn, datapoints):
         """Constructs a new training data-point for the Trigger Function model.
+        
+        The format of this dataset is same as that of the default IFTTT corpus.
+        Since this data-point corresponds to a Trigger Function, there are many
+        fields such as URL and Action-related fields which are irrelevant. 
+        These fields are kept empty.
 
         Args:
             description (str): Description of the Trigger Function `trigger_fn`
@@ -375,16 +379,22 @@ class DialogTrainingSet(object):
             datapoints (`list` of `dict`): The list of data-points to which the
                 new data-point should be added.
         """
-        label = trigger_channel + '.' + trigger_fn
-        datapoint = {'id': len(datapoints),
-                     'description': description, 'label': label}
+        datapoint = {'url': "", 'name': description,
+                     'trigger_channel': trigger_channel,
+                     'trigger_function': trigger_fn,
+                     'action_channel': "", 'action_function': ""}
         datapoints.append(datapoint)
 
     @staticmethod
     def _add_action_fn_datapoint(description, action_channel, action_fn,
                                  datapoints):
         """Constructs a new training data-point for the Action Function model.
-
+        
+        The format of this dataset is same as that of the default IFTTT corpus.
+        Since this data-point corresponds to a Action Function, there are many
+        fields such as URL and Trigger-related fields which are irrelevant. 
+        These fields are kept empty.
+        
         Args:
             description (str): Description of the Action Function `action_fn`
                 as provided by the user.
@@ -395,16 +405,21 @@ class DialogTrainingSet(object):
             datapoints (`list` of `dict`): The list of data-points to which the
                 new data-point should be added.
         """
-        label = action_channel + '.' + action_fn
-        datapoint = {'id': len(datapoints),
-                     'description': description, 'label': label}
+        datapoint = {'url': "", 'name': description, 'trigger_channel': "",
+                     'trigger_function': "", 'action_channel': action_channel,
+                     'action_function': action_fn}
         datapoints.append(datapoint)
 
     @staticmethod
     def _add_trigger_channel_datapoint(description, trigger_channel,
                                        datapoints):
         """Constructs a new training data-point for the Trigger Channel model.
-
+        
+        The format of this dataset is same as that of the default IFTTT corpus.
+        Since this data-point corresponds to a Trigger Channel, there are many
+        fields such as URL, Trigger Function, and Action-related fields 
+        which are irrelevant. These fields are kept empty.
+        
         Args:
             description (str): Description of the Trigger Channel
                 `trigger_channel` as provided by the user.
@@ -413,14 +428,20 @@ class DialogTrainingSet(object):
             datapoints (`list` of `dict`): The list of data-points to which the
                 new data-point should be added.
         """
-        datapoint = {'id': len(datapoints),
-                     'description': description, 'label': trigger_channel}
+        datapoint = {'url': "", 'name': description,
+                     'trigger_channel': trigger_channel, 'trigger_function': "",
+                     'action_channel': "", 'action_function': ""}
         datapoints.append(datapoint)
 
     @staticmethod
     def _add_action_channel_datapoint(description, action_channel, datapoints):
         """Constructs a new training data-point for the Action Channel model.
-
+        
+        The format of this dataset is same as that of the default IFTTT corpus.
+        Since this data-point corresponds to a Action Channel, there are many
+        fields such as URL, Action Function, and Trigger-related fields 
+        which are irrelevant. These fields are kept empty.
+        
         Args:
             description (str): Description of the Action Channel
                 `action_channel` as provided by the user.
@@ -429,8 +450,9 @@ class DialogTrainingSet(object):
             datapoints (`list` of `dict`): The list of data-points to which the
                 new data-point should be added.
         """
-        datapoint = {'id': len(datapoints),
-                     'description': description, 'label': action_channel}
+        datapoint = {'url': "", 'name': description, 'trigger_channel': "",
+                     'trigger_function': "", 'action_channel': action_channel,
+                     'action_function': ""}
         datapoints.append(datapoint)
 
 
@@ -473,20 +495,12 @@ def build_log_summaries(log_files):
     return summaries
 
 
-def write_full_datapoints(datapoints, csv_file):
+def write_datapoints(datapoints, csv_file):
     with open(csv_file, 'w') as f:
         w = csv.DictWriter(
             f, fieldnames=['url', 'name', 'description', 'trigger_channel',
                            'trigger_function', 'action_channel',
                            'action_function'], extrasaction='ignore')
-        w.writeheader()
-        w.writerows(datapoints)
-
-
-def write_model_specific_datapoints(datapoints, csv_file):
-    with open(csv_file, 'w') as f:
-        w = csv.DictWriter(
-            f, fieldnames=['id', 'description', 'label'], extrasaction='ignore')
         w.writeheader()
         w.writerows(datapoints)
 
@@ -516,28 +530,26 @@ def main():
             dialog_set.construct_training_examples()
 
     if args.generate_full_pos != "":
-        write_full_datapoints(DialogTrainingSet.full_datapoints_pos,
-                              args.generate_full_pos)
+        write_datapoints(DialogTrainingSet.full_datapoints_pos,
+                         args.generate_full_pos)
     if args.generate_t_channel_neg != "":
-        write_model_specific_datapoints(
-            DialogTrainingSet.t_channel_datapoints_neg,
-            args.generate_t_channel_neg)
+        write_datapoints(DialogTrainingSet.t_channel_datapoints_neg,
+                         args.generate_t_channel_neg)
     if args.generate_a_channel_neg != "":
-        write_model_specific_datapoints(
-            DialogTrainingSet.a_channel_datapoints_neg,
-            args.generate_a_channel_neg)
+        write_datapoints(DialogTrainingSet.a_channel_datapoints_neg,
+                         args.generate_a_channel_neg)
     if args.generate_t_fn_pos != "":
-        write_model_specific_datapoints(DialogTrainingSet.t_fn_datapoints_pos,
-                                        args.generate_t_fn_pos)
+        write_datapoints(DialogTrainingSet.t_fn_datapoints_pos,
+                         args.generate_t_fn_pos)
     if args.generate_t_fn_neg != "":
-        write_model_specific_datapoints(DialogTrainingSet.t_fn_datapoints_neg,
-                                        args.generate_t_fn_neg)
+        write_datapoints(DialogTrainingSet.t_fn_datapoints_neg,
+                         args.generate_t_fn_neg)
     if args.generate_a_fn_pos != "":
-        write_model_specific_datapoints(DialogTrainingSet.a_fn_datapoints_pos,
-                                        args.generate_a_fn_pos)
+        write_datapoints(DialogTrainingSet.a_fn_datapoints_pos,
+                         args.generate_a_fn_pos)
     if args.generate_a_fn_neg != "":
-        write_model_specific_datapoints(DialogTrainingSet.a_fn_datapoints_neg,
-                                        args.generate_a_fn_neg)
+        write_datapoints(DialogTrainingSet.a_fn_datapoints_neg,
+                         args.generate_a_fn_neg)
 
 
 if __name__ == '__main__':
