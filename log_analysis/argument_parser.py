@@ -78,3 +78,33 @@ def arguments_parser_training_data():
                              "written to,  if specified.",
                         dest='generate_a_fn_pos')
     return parser
+
+
+def model_on_logs_arguments_parser():
+    """Parses command-line arguments for running models on dialog logs.
+
+    Returns:
+        argparse.ArgumentParser: Argument parser for training
+    """
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--log-level', nargs='?', type=str,
+                        default="INFO", const="INFO",
+                        help="Logging level. Can take values among ['DEBUG',"
+                             "'INFO', 'WARNING', 'ERROR', 'CRITICAL']",
+                        dest='log_level')
+    parser.add_argument('--alpha', nargs='?', type=float,
+                        default=0.85, const=0.85,
+                        help="Threshold of confidence above which the slot is "
+                             "deemed as confidently-filled without a need for "
+                             "confirmation.", dest='alpha')
+    parser.add_argument('--beta', nargs='?', type=float,
+                        default=0.25, const=0.25,
+                        help="Threshold of confidence above which -- and below"
+                             " alpha -- above which the slot is explicitly "
+                             "confirmed before being accepted", dest='beta')
+    parser.add_argument('--log-directories', nargs='?', type=str,
+                        default="", const="",
+                        help="Directories containing log files.",
+                        dest='log_directories')
+    return parser
