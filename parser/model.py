@@ -232,7 +232,9 @@ class Model(object):
         if init_variables:
             self._session.run(tf.initialize_all_variables())
             logging.info("Variables initialized.")
-        self._saver = tf.train.Saver(max_to_keep=None)
+        # self._saver = tf.train.Saver(max_to_keep=None)
+        self._saver = tf.train.Saver(max_to_keep=None,
+                                     var_list=tf.trainable_variables())
 
     def train(self):
         """Trains the network on the loaded training dataset using mini-batch
