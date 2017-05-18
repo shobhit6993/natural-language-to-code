@@ -1,0 +1,362 @@
+<!-- For help regarding importing run configs to Pycharm project, refer to
+https://www.symantec.com/connect/articles/exporting-run-configurations-pycharm -->
+
+<component name="RunManager" selected="Python.dialog-pipeline">
+  <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="INTERPRETER_PATH" value="/bin/bash" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="" />
+    <option name="PARAMETERS" value="" />
+    <module name="" />
+    <envs />
+    <method />
+  </configuration>
+  <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="true" type="Tox" factoryName="Tox">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <method />
+  </configuration>
+  <configuration default="true" type="tests" factoryName="Doctests">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="" />
+    <option name="CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="FOLDER_NAME" value="" />
+    <option name="TEST_TYPE" value="TEST_SCRIPT" />
+    <option name="PATTERN" value="" />
+    <option name="USE_PATTERN" value="false" />
+    <method />
+  </configuration>
+  <configuration default="true" type="tests" factoryName="Nosetests">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="_new_regexPattern" value="&quot;&quot;" />
+    <option name="_new_additionalArguments" value="&quot;&quot;" />
+    <option name="_new_target" value="&quot;.&quot;" />
+    <option name="_new_targetType" value="&quot;PATH&quot;" />
+    <method />
+  </configuration>
+  <configuration default="true" type="tests" factoryName="Unittests">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="_new_additionalArguments" value="&quot;&quot;" />
+    <option name="_new_target" value="&quot;.&quot;" />
+    <option name="_new_targetType" value="&quot;PATH&quot;" />
+    <method />
+  </configuration>
+  <configuration default="true" type="tests" factoryName="py.test">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="_new_keywords" value="&quot;&quot;" />
+    <option name="_new_additionalArguments" value="&quot;&quot;" />
+    <option name="_new_target" value="&quot;.&quot;" />
+    <option name="_new_targetType" value="&quot;PATH&quot;" />
+    <method />
+  </configuration>
+  <configuration default="false" name="combined" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/combined_test.py" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="uncertainty-sampling" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/uncertainty_sampling.py" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="dialog-pipeline" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dialog/run_pipeline.py" />
+    <option name="PARAMETERS" value="--log-level ERROR" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="sim-user-pipeline" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulated_user/run_pipeline.py" />
+    <option name="PARAMETERS" value="--log-level INFO --use-gold --alpha 0.9 --beta 0.2" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="dialog-grid-search" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulated_user/run_dialog_params_grid_search.py" />
+    <option name="PARAMETERS" value="" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="predict" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/predict.py" />
+    <option name="PARAMETERS" value="--log-level INFO --model TriggerFunctionModel --experiment-name trigger-func-23/trigger-func-23-7 trigger-func-23/trigger-func-23-8 --saved-model-path ./experiments/rnn/trigger-func-23/trigger-func-23-7/model-10 ./experiments/rnn/trigger-func-23/trigger-func-23-8/model-10" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="load_and_train" type="PythonConfigurationType" factoryName="Python">
+    <output_file path="$USER_HOME$/1.log" is_save="true" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/train.py" />
+    <option name="PARAMETERS" value="--log-level DEBUG --model ActionFunctionModel --experiment-name action-func-3/action-func-3-0 --use-names-descriptions --external-train-csv misc/experiments/experiment-3/a-fn-pos-combined.csv --retrain non_attention --load-and-train --saved-model-path ./experiments/rnn/action-func-1/action-func-1-0/model-20" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="run-model-on-logs" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log_analysis/run_model_on_logs.py" />
+    <option name="PARAMETERS" value="--log-level INFO --log-directories ./experiments/turk/experiment-1/combined/" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="train_model" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/train.py" />
+    <option name="PARAMETERS" value="--log-level DEBUG --model TriggerFunctionModel --experiment-name dummy --use-names-descriptions --use-train-set" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="test" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+    <option name="IS_MODULE_SDK" value="true" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parser/test.py" />
+    <option name="PARAMETERS" value="--log-level DEBUG --model ActionFunctionModel --experiment-name action-func-3/action-func-3-1 --use-names-descriptions --use-full-test-set --saved-model-path ./experiments/rnn/action-func-3/action-func-3-1/model-checkpoints/model-3" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="training-data-from-dialog" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log_analysis/training_data_from_dialog.py" />
+    <option name="PARAMETERS" value="--log-level DEBUG --log-directories ./experiments/turk/experiment-5/full/ --generate-full-pos ./ifttt/data/misc/experiments/experiment-5/full-pos.csv --generate-t-channel-neg ./ifttt/data/misc/experiments/experiment-5/t-channel-neg.csv --generate-a-channel-neg ./ifttt/data/misc/experiments/experiment-5/a-channel-neg.csv --generate-t-fn-pos ./ifttt/data/misc/experiments/experiment-5/t-fn-pos.csv --generate-t-fn-neg ./ifttt/data/misc/experiments/experiment-5/t-fn-neg.csv --generate-a-fn-pos ./ifttt/data/misc/experiments/experiment-5/a-fn-pos.csv --generate-a-fn-neg ./ifttt/data/misc/experiments/experiment-5/a-fn-neg.csv" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <configuration default="false" name="analyze-logs" type="PythonConfigurationType" factoryName="Python">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="$USER_HOME$/archive/packages/anaconda-2/envs/tensorflow/bin/python2.7" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log_analysis/analyze_logs.py" />
+    <option name="PARAMETERS" value="--log-level DEBUG --log-directories ./experiments/turk/experiment-3/full" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <method />
+  </configuration>
+  <list size="12">
+    <item index="0" class="java.lang.String" itemvalue="Python.combined" />
+    <item index="1" class="java.lang.String" itemvalue="Python.uncertainty-sampling" />
+    <item index="2" class="java.lang.String" itemvalue="Python.dialog-pipeline" />
+    <item index="3" class="java.lang.String" itemvalue="Python.sim-user-pipeline" />
+    <item index="4" class="java.lang.String" itemvalue="Python.dialog-grid-search" />
+    <item index="5" class="java.lang.String" itemvalue="Python.predict" />
+    <item index="6" class="java.lang.String" itemvalue="Python.load_and_train" />
+    <item index="7" class="java.lang.String" itemvalue="Python.run-model-on-logs" />
+    <item index="8" class="java.lang.String" itemvalue="Python.train_model" />
+    <item index="9" class="java.lang.String" itemvalue="Python.test" />
+    <item index="10" class="java.lang.String" itemvalue="Python.training-data-from-dialog" />
+    <item index="11" class="java.lang.String" itemvalue="Python.analyze-logs" />
+  </list>
+  <configuration default="true" type="tests" factoryName="Attests">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs />
+    <option name="SDK_HOME" value="" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <module name="natural-language-to-code" />
+    <option name="SCRIPT_NAME" value="" />
+    <option name="CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="FOLDER_NAME" value="" />
+    <option name="TEST_TYPE" value="TEST_SCRIPT" />
+    <option name="PATTERN" value="" />
+    <option name="USE_PATTERN" value="false" />
+    <method />
+  </configuration>
+</component>
