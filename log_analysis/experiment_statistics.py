@@ -23,6 +23,12 @@ class ExperimentStatistics(object):
          the agent's final state and the actual goal."""
         self._total_dialog_length = 0
         """:int: Cumulative lengths of all dialogs."""
+        self._max_dialog_length = 0
+        """:int: Maximum length among all dialogs."""
+        self._min_dialog_length = float('inf')
+        """:int: Minimum length among all dialogs."""
+        self._median_dialog_length = float('inf')
+        """:int: Median length of all dialogs."""
 
         self._survey_easy_score = 0.
         self._survey_understand_score = 0.
@@ -36,6 +42,21 @@ class ExperimentStatistics(object):
             return 0.
         else:
             return self._total_dialog_length / float(self.num_dialogs)
+
+    @property
+    def max_dialog_length(self):
+        """:int: Maximum length among all dialogs."""
+        return self._max_dialog_length
+
+    @property
+    def min_dialog_length(self):
+        """:int: Minimum length among all dialogs."""
+        return self._min_dialog_length
+
+    @property
+    def median_dialog_length(self):
+        """:int: Median length of all dialogs."""
+        return self._median_dialog_length
 
     @property
     def terminated_dialogs(self):
@@ -126,6 +147,15 @@ class ExperimentStatistics(object):
 
     def increment_total_dialog_length(self, l):
         self._total_dialog_length += l
+
+    def set_max_dialog_length(self, l):
+        self._max_dialog_length = max(self._max_dialog_length, l)
+
+    def set_min_dialog_length(self, l):
+        self._min_dialog_length = min(self._min_dialog_length, l)
+
+    def set_median_dialog_length(self, l):
+        self._median_dialog_length = l
 
     def increment_survey_easy_score(self, rating):
         self._survey_easy_score += rating

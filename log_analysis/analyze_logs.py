@@ -5,6 +5,7 @@ from __future__ import absolute_import
 
 import glob
 import logging
+from numpy import median
 
 from tracker.constants import DialogStatus
 from log_analysis.experiment_statistics import ExperimentStatistics
@@ -60,12 +61,16 @@ def generate_expt_stats(log_summaries):
             statistics need to be combined.
     """
     experiment_stats = ExperimentStatistics()
+    lengths = []
     for summary in log_summaries:
         for dialog_stat in summary.dialog_stats:
-            experiment_stats.increment_num_dialogs()
+            lengths.append(dialog_stat.dialog_length)
 
+            experiment_stats.increment_num_dialogs()
             experiment_stats.increment_total_dialog_length(
                 dialog_stat.dialog_length)
+            experiment_stats.set_max_dialog_length(dialog_stat.dialog_length)
+            experiment_stats.set_min_dialog_length(dialog_stat.dialog_length)
 
             if dialog_stat.dialog_status_user_view is DialogStatus.success:
                 experiment_stats.increment_num_successful_dialogs_user_view()
@@ -83,6 +88,7 @@ def generate_expt_stats(log_summaries):
             experiment_stats.increment_survey_sensible_score(survey.sensible)
             experiment_stats.increment_survey_long_score(survey.long)
 
+    experiment_stats.set_median_dialog_length(median(lengths))
     return experiment_stats
 
 
@@ -94,6 +100,9 @@ def print_expt_statistics(expt_stats):
     """
     print "-----------"
     print "Average Dialog Length: ", expt_stats.dialog_length
+    print "Maximum Dialog Length: ", expt_stats.max_dialog_length
+    print "Minimum Dialog Length: ", expt_stats.min_dialog_length
+    print "Median Dialog Length: ", expt_stats.median_dialog_length
     print ("Fraction of Successful Dialogs (user's view): ",
            expt_stats.successful_dialogs_user_view)
     print ("Fraction of Successful Dialogs (true): ",
